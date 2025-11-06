@@ -1,20 +1,21 @@
+import { Link } from "react-router-dom";
 import "./Navbar.css";
 
 export default function Navbar() {
     return (
         <header className="fixed, top-0 w-full z-50 shadow-lg h-24 hidden md:flex">
-            <a
-                href=""
+            <Link
+                to="/"
                 className="nav-link-box  flex-shrink-0 flex items-center justify-center px-4 lg:px-6 xl:px-8"
             >
                 <img className="nav-img" src="/footprint.png" alt="" />
-            </a>
+            </Link>
             <nav className=" header-links contents font-semibold text-base lg:text-lg">
                 <ul className="flex items-center ml-4 xl:ml-8 mr-auto">
                     <li className="p-3 xl:p-6 active">
-                        <a href="">
+                        <Link to="/">
                             <span>Home</span>
-                        </a>
+                        </Link>
                     </li>
                     <li className="p-3 xl:p-6">
                         <a href="">
@@ -67,9 +68,9 @@ export default function Navbar() {
             <div className="header-links flex font-semibold items-center px-4 lg:px-6 xl:px-8">
                 <ul className="flex items-center  xl:ml-8 ">
                     <li className="p-3 xl:p-6 ">
-                        <a href="">
+                        <Link to="/users/login">
                             <span>Login</span>
-                        </a>
+                        </Link>
                     </li>
                     <li className="p-3 xl:p-6 ">
                         <a href="">
