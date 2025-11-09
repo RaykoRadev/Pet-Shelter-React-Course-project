@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 
-export default function Login() {
+export default function Register() {
     return (
         <>
             <div className="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
@@ -11,7 +11,7 @@ export default function Login() {
                         className="mx-auto h-30 w-auto"
                     />
                     <h2 className="mt-10 text-center text-2xl/9 font-bold tracking-tight text-gray-900">
-                        Sign in to your account
+                        Register your account
                     </h2>
                 </div>
 
@@ -37,6 +37,25 @@ export default function Login() {
                         </div>
 
                         <div>
+                            <label
+                                htmlFor="username"
+                                className="block text-sm/6 font-medium text-gray-900"
+                            >
+                                Username address
+                            </label>
+                            <div className="mt-2">
+                                <input
+                                    id="username"
+                                    name="username"
+                                    type="text"
+                                    required
+                                    autoComplete="username"
+                                    className="block w-full rounded-md bg-green-200/50 px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-400 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-green-700 sm:text-sm/6"
+                                />
+                            </div>
+                        </div>
+
+                        <div>
                             <div className="flex items-center justify-between">
                                 <label
                                     htmlFor="password"
@@ -44,19 +63,32 @@ export default function Login() {
                                 >
                                     Password
                                 </label>
-                                <div className="text-sm">
-                                    <a
-                                        href="#"
-                                        className="font-semibold text-green-700 hover:text-green-600"
-                                    >
-                                        Forgot password?
-                                    </a>
-                                </div>
                             </div>
                             <div className="mt-2">
                                 <input
                                     id="password"
                                     name="password"
+                                    type="password"
+                                    required
+                                    autoComplete="current-password"
+                                    className="block w-full rounded-md bg-green-200/50 px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-400 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-green-700 sm:text-sm/6"
+                                />
+                            </div>
+                        </div>
+
+                        <div>
+                            <div className="flex items-center justify-between">
+                                <label
+                                    htmlFor="rePassword"
+                                    className="block text-sm/6 font-medium text-gray-900"
+                                >
+                                    Reapeat Password
+                                </label>
+                            </div>
+                            <div className="mt-2">
+                                <input
+                                    id="rePassword"
+                                    name="rePassword"
                                     type="password"
                                     required
                                     autoComplete="current-password"
@@ -78,10 +110,10 @@ export default function Login() {
                     <p className="mt-10 text-center text-sm/6 text-gray-500">
                         Not a member?{" "}
                         <Link
-                            to="/users/register"
+                            to="/users/login"
                             className="font-semibold text-green-700 hover:text-indigo-500"
                         >
-                            Register
+                            Login
                         </Link>
                     </p>
                 </div>

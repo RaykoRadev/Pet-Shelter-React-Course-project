@@ -18,9 +18,9 @@ export default function Navbar() {
                         </Link>
                     </li>
                     <li className="p-3 xl:p-6">
-                        <a href="">
+                        <Link to="/pets/catalog">
                             <span>Catalog</span>
-                        </a>
+                        </Link>
                     </li>
                     <li className="p-3 xl:p-6">
                         <a href="">
@@ -73,9 +73,9 @@ export default function Navbar() {
                         </Link>
                     </li>
                     <li className="p-3 xl:p-6 ">
-                        <a href="">
+                        <Link to="/users/register">
                             <span>Register</span>
-                        </a>
+                        </Link>
                     </li>
                     <li className="p-3 xl:p-6 text-green-700 hover:text-green-600 text-lg ">
                         <span className="text-black">Welcome </span>
