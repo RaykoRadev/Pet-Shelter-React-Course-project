@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 export default function CatalogItem({
     _id,
     age,
@@ -10,14 +12,15 @@ export default function CatalogItem({
 }) {
     return (
         <div className="bg-green-100 p-3 rounded-lg group overflow-hidden relative z-50 lg:hover:before:bg-black before:absolute before:inset-0 before:opacity-20 before:transition-all">
-            <a href="#" className="block">
+            <Link to={`/pets/details/${_id}`} className="block  ">
                 <div className="w-full lg:aspect-[41/50] aspect-[41/40] overflow-hidden mx-auto rounded-lg bg-green-100">
                     <img
                         src={imageUrl}
                         alt={breed}
-                        className="h-full w-full object-contain max-lg:p-3 "
+                        className="h-full w-full object-contain max-lg:p-3 outline-4 outline-red-500"
                     />
                 </div>
+
                 <div className="relative z-50 lg:absolute mx-auto lg:left-0 lg:right-0 lg:-bottom-80 lg:group-hover:bottom-2 bg-green-200 lg:w-11/12 w-full py-4 px-2 rounded-lg transition-all duration-300">
                     <div className="text-center">
                         <h3 className="text-sm lg:text-[15px] font-semibold text-slate-900">
@@ -49,7 +52,7 @@ export default function CatalogItem({
                         </div>
                     </div>
                 </div>
-            </a>
+            </Link>
         </div>
     );
 }
