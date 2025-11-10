@@ -14,7 +14,7 @@ export default function Details() {
         };
 
         post();
-    }, []);
+    }, [petId]);
 
     return (
         <div className="bg-green-100 mt-30">
@@ -23,36 +23,36 @@ export default function Details() {
                     <div className="lg:col-span-3 w-full lg:sticky top-0 text-center">
                         <div className="px-4 py-10 rounded-sm  relative">
                             <img
-                                src={pet?.imageUrl}
-                                alt={pet?.name}
+                                src={pet.imageUrl}
+                                alt={pet.name}
                                 className="w-4/5 aspect-[251/171] rounded-sm object-cover mx-auto"
                             />
                         </div>
                     </div>
                     <div className="lg:col-span-2">
                         <h2 className="mt-2 text-center text-2xl/9 font-bold tracking-tight text-gray-900">
-                            {pet?.name}
+                            {pet.name}
                         </h2>
 
                         <p className="flex flex-wrap gap-3 mt-4">
                             <span className="text-xl font-bold text-slate-900">
                                 Breed:{" "}
                             </span>{" "}
-                            {pet?.breed}
+                            {pet.breed}
                         </p>
 
                         <p className="flex flex-wrap gap-3 mt-4">
                             <span className="text-xl font-bold text-slate-900">
                                 Age:{" "}
                             </span>{" "}
-                            {pet?.age}
+                            {pet.age}
                         </p>
 
                         <p className="flex flex-wrap gap-3 mt-4">
                             <span className="text-xl font-bold text-slate-900">
                                 Description:{" "}
                             </span>{" "}
-                            {pet?.description}
+                            {pet.description}
                         </p>
 
                         <p className="flex flex-wrap gap-3 mt-4">
@@ -66,7 +66,7 @@ export default function Details() {
                             <span className="text-xl font-bold text-slate-900">
                                 Autor:{" "}
                             </span>{" "}
-                            {pet?.author?.username}
+                            {pet.author?.username}
                         </p>
 
                         <div className="flex gap-4 mt-12 max-w-md">

@@ -1,6 +1,6 @@
 export default function Footer() {
     return (
-        <div className="bg-green-100  shadow-[0_-6px_12px_rgba(0,0,0,0.2)] w-full px-4 py-6 mx-auto space-y-8 overflow-hidden sm:px-6 lg:px-8">
+        <div className="bg-green-200  shadow-[0_-6px_12px_rgba(0,0,0,0.2)] w-full px-4 py-6 mx-auto space-y-8 overflow-hidden sm:px-6 lg:px-8">
             {/* <nav className="flex flex-wrap justify-center -mx-5 -my-2">
                 <div className="px-5 py-2">
                     <a
@@ -54,7 +54,7 @@ export default function Footer() {
             <div className="flex justify-center mt-8 space-x-6">
                 <a
                     href="https://www.facebook.com/christmas898"
-                    className="text-gray-400 hover:text-gray-500"
+                    className="text-gray-600 hover:text-green-700 transition-transform duration-300 transform hover:scale-125"
                 >
                     <span className="sr-only">Facebook</span>
                     <svg
@@ -73,7 +73,7 @@ export default function Footer() {
 
                 <a
                     href="https://www.instagram.com/rayko_radev/"
-                    className="text-gray-400 hover:text-gray-500"
+                    className="text-gray-600 hover:text-green-700 transition-transform duration-300 transform hover:scale-125"
                 >
                     <span className="sr-only">Instagram</span>
                     <svg
@@ -90,7 +90,7 @@ export default function Footer() {
                     </svg>
                 </a>
 
-                {/* <a href="#" className="text-gray-400 hover:text-gray-500">
+                {/* <a href="#" className="text-gray-600 hover:text-green-700">
                     <span className="sr-only">Twitter</span>
                     <svg
                         className="w-6 h-6"
@@ -104,7 +104,7 @@ export default function Footer() {
 
                 <a
                     href="https://github.com/RaykoRadev"
-                    className="text-gray-400 hover:text-gray-500"
+                    className="text-gray-600 hover:text-green-700 transition-transform duration-300 transform hover:scale-125"
                 >
                     <span className="sr-only">GitHub</span>
                     <svg
@@ -121,7 +121,7 @@ export default function Footer() {
                     </svg>
                 </a>
 
-                {/* <a href="#" className="text-gray-400 hover:text-gray-500">
+                {/* <a href="#" className="text-gray-600 hover:text-green-700">
                     <span className="sr-only">Dribbble</span>
                     <svg
                         className="w-6 h-6"
@@ -137,7 +137,7 @@ export default function Footer() {
                     </svg>
                 </a> */}
             </div>
-            <p className="mt-8 text-base leading-6 text-center text-gray-400">
+            <p className="mt-8 text-base leading-6 text-center text-gray-600">
                 © 2025 All rights reserved.
             </p>
         </div>
