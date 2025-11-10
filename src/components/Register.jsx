@@ -41,7 +41,7 @@ export default function Register() {
                                 htmlFor="username"
                                 className="block text-sm/6 font-medium text-gray-900"
                             >
-                                Username address
+                                Username
                             </label>
                             <div className="mt-2">
                                 <input

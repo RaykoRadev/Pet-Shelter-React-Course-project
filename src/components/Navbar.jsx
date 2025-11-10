@@ -23,9 +23,9 @@ export default function Navbar() {
                         </Link>
                     </li>
                     <li className="p-3 xl:p-6">
-                        <a to="">
+                        <Link to="/pets/create">
                             <span>Create</span>
-                        </a>
+                        </Link>
                     </li>
                     <li className="p-3 xl:p-6">
                         <Link to="/pets/test">
@@ -33,8 +33,8 @@ export default function Navbar() {
                         </Link>
                     </li>
                     <li className="p-3 xl:p-6">
-                        <Link to="/pets/test1">
-                            <span>Test 1</span>
+                        <Link to="/pets/spinner">
+                            <span>Spinner</span>
                         </Link>
                     </li>
                     <li className="p-3 xl:p-6">

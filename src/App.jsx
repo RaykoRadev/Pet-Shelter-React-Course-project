@@ -9,6 +9,8 @@ import Test from "./components/Test";
 import Test1 from "./components/Test1";
 import Delete from "./components/Delete";
 import Details from "./components/Details";
+import Spinner from "./components/Spinner";
+import CreateEdit from "./components/Create-edit";
 
 function App() {
     return (
@@ -20,9 +22,10 @@ function App() {
                     <Route path="/users/login" element={<Login />} />
                     <Route path="/users/register" element={<Register />} />
                     <Route path="/pets/catalog" element={<Catalog />} />
+                    <Route path="/pets/create" element={<CreateEdit />} />
                     <Route path="/pets/details/:petId" element={<Details />} />
                     <Route path="/pets/test" element={<Test />} />
-                    <Route path="/pets/test1" element={<Test1 />} />
+                    <Route path="/pets/spinner" element={<Spinner />} />
                     <Route path="/pets/delete" element={<Delete />} />
                 </Routes>
             </div>

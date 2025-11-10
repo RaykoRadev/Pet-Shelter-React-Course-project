@@ -1,1 +1,11 @@
 @import "tailwindcss";
+
+@layer utilities {
+    .number-color {
+        input[type="number"]::-webkit-inner-spin-button,
+        input[type="number"]::-webkit-outer-spin-button {
+            background-color: #a7f3d0; /* Example: Tailwind's green-200 */
+            border-radius: 4px;
+        }
+    }
+}
