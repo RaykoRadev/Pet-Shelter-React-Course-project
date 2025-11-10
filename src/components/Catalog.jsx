@@ -1,17 +1,24 @@
 import { useEffect, useState } from "react";
 import { getAll } from "../services/petServices";
 import CatalogItem from "./CatalogItem";
+import Spinner from "./Spinner";
 
 export default function Catalog() {
     const [pets, setPets] = useState([]);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         const getData = async () => {
             const data = await getAll();
             setPets(data);
+            setLoading(false);
         };
         getData();
     }, []);
+
+    if (loading) {
+        return <Spinner />;
+    }
 
     if (pets.length === 0) {
         return <h2>There is no any pets with no home!</h2>;
