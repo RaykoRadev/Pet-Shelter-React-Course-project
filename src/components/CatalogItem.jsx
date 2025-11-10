@@ -33,7 +33,8 @@ export default function CatalogItem({
                             Age: {age}
                         </h4>
                     </div>
-                    <div className="flex justify-center space-x-1 mt-4">
+                    {/*// todo  if the logic about loged not owner is easy to be transfered in this component  */}
+                    {/* <div className="flex justify-center space-x-1 mt-4">
                         <div
                             className="border-pink-200  flex items-center justify-center rounded-sm cursor-pointer"
                             title="Wishlist"
@@ -50,7 +51,7 @@ export default function CatalogItem({
                                 />
                             </svg>
                         </div>
-                    </div>
+                    </div> */}
                 </div>
             </Link>
         </div>

@@ -8,11 +8,14 @@ export default function Catalog() {
     useEffect(() => {
         const getData = async () => {
             const data = await getAll();
-            console.log("in useEffect: ", data);
             setPets(data);
         };
         getData();
     }, []);
+
+    if (pets.length === 0) {
+        return <h2>There is no any pets with no home!</h2>;
+    }
 
     return (
         <div className="py-4 mx-auto lg:max-w-6xl md:max-w-4xl max-w-xl">
