@@ -23,45 +23,30 @@ export default function Navbar() {
                         </Link>
                     </li>
                     <li className="p-3 xl:p-6">
-                        <a href="">
+                        <a to="">
                             <span>Create</span>
                         </a>
                     </li>
-                    {/* <li className="p-3 xl:p-6">
-                        <a href="">
-                            <span>Projects</span>
-                        </a>
+                    <li className="p-3 xl:p-6">
+                        <Link to="/pets/test">
+                            <span>Test</span>
+                        </Link>
                     </li>
                     <li className="p-3 xl:p-6">
-                        <a href="">
-                            <span>Skills</span>
-                        </a>
-                    </li> */}
+                        <Link to="/pets/test1">
+                            <span>Test 1</span>
+                        </Link>
+                    </li>
                     <li className="p-3 xl:p-6">
-                        <a href="">
+                        <Link to="">
                             <span>About us</span>
-                        </a>
+                        </Link>
                     </li>
-                    {/* <li className="p-3 xl:p-6">
-                        <a href="" className="flex items-center">
-                            <span>Pages</span>
-                            <svg
-                                className="h-3 opacity-30 ml-2"
-                                aria-hidden="true"
-                                focusable="false"
-                                data-prefix="far"
-                                data-icon="chevron-down"
-                                role="img"
-                                xmlns="http://www.w3.org/2000/svg"
-                                viewBox="0 0 448 512"
-                            >
-                                <path
-                                    fill="currentColor"
-                                    d="M441.9 167.3l-19.8-19.8c-4.7-4.7-12.3-4.7-17 0L224 328.2 42.9 147.5c-4.7-4.7-12.3-4.7-17 0L6.1 167.3c-4.7 4.7-4.7 12.3 0 17l209.4 209.4c4.7 4.7 12.3 4.7 17 0l209.4-209.4c4.7-4.7 4.7-12.3 0-17z"
-                                />
-                            </svg>
-                        </a>
-                    </li> */}
+                    <li className="p-3 xl:p-6">
+                        <Link to="/pets/delete">
+                            <span>Delete</span>
+                        </Link>
+                    </li>
                 </ul>
             </nav>
 

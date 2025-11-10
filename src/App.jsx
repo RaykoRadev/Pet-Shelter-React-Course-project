@@ -6,6 +6,8 @@ import Navbar from "./components/Navbar";
 import Register from "./components/Register";
 import Catalog from "./components/Catalog";
 import Test from "./components/Test";
+import Test1 from "./components/Test1";
+import Delete from "./components/Delete";
 
 function App() {
     return (
@@ -18,6 +20,8 @@ function App() {
                     <Route path="/users/register" element={<Register />} />
                     <Route path="/pets/catalog" element={<Catalog />} />
                     <Route path="/pets/test" element={<Test />} />
+                    <Route path="/pets/test1" element={<Test1 />} />
+                    <Route path="/pets/delete" element={<Delete />} />
                 </Routes>
             </div>
             <Footer />
