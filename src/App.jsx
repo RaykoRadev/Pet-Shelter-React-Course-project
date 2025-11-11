@@ -12,6 +12,7 @@ import Details from "./components/Details";
 import Spinner from "./components/Spinner";
 import CreateEdit from "./components/Create-edit";
 import AboutUs from "./components/AboutUs";
+import NotFound from "./components/NotFound";
 
 function App() {
     return (
@@ -38,6 +39,7 @@ function App() {
                         <Route path="delete" element={<Delete />} />
                     </Route>
                     <Route path="/about-us" element={<AboutUs />} />
+                    <Route path="*" element={<NotFound />} />
                 </Routes>
             </div>
             <Footer />
