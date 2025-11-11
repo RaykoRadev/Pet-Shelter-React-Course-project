@@ -11,6 +11,7 @@ import Delete from "./components/Delete";
 import Details from "./components/Details";
 import Spinner from "./components/Spinner";
 import CreateEdit from "./components/Create-edit";
+import AboutUs from "./components/AboutUs";
 
 function App() {
     return (
@@ -21,12 +22,15 @@ function App() {
                     <Route path="/" element={<Home />} />
                     <Route path="/users/login" element={<Login />} />
                     <Route path="/users/register" element={<Register />} />
-                    <Route path="/pets/catalog" element={<Catalog />} />
-                    <Route path="/pets/create" element={<CreateEdit />} />
-                    <Route path="/pets/details/:petId" element={<Details />} />
-                    <Route path="/pets/test" element={<Test />} />
-                    <Route path="/pets/spinner" element={<Spinner />} />
-                    <Route path="/pets/delete" element={<Delete />} />
+                    <Route path="/pets">
+                        <Route path="catalog" element={<Catalog />} />
+                        <Route path="create" element={<CreateEdit />} />
+                        <Route path="details/:petId" element={<Details />} />
+                        <Route path="test" element={<Test />} />
+                        <Route path="spinner" element={<Spinner />} />
+                        <Route path="delete" element={<Delete />} />
+                    </Route>
+                    <Route path="/about-us" element={<AboutUs />} />
                 </Routes>
             </div>
             <Footer />

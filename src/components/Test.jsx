@@ -1,156 +1,176 @@
+import { useEffect, useState } from "react";
+
+import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
+import "leaflet/dist/leaflet.css";
+import L from "leaflet";
+
+delete L.Icon.Default.prototype._getIconUrl;
+L.Icon.Default.mergeOptions({
+    iconRetinaUrl:
+        "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon-2x.png",
+    iconUrl:
+        "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon.png",
+    shadowUrl:
+        "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-shadow.png",
+});
+
 export default function Test() {
+    const [location, setLocation] = useState({ lat: 43.24314, lng: 26.5674 });
+
     return (
-        <div className="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
-            <div className="sm:mx-auto sm:w-full sm:max-w-sm">
-                <img
-                    alt="Your Company"
-                    src="/footprint.png"
-                    className="mx-auto h-30 w-auto"
-                />
-                <h2 className="mt-4 text-center text-2xl/9 font-bold tracking-tight text-gray-900">
-                    Create a post
-                </h2>
+        <>
+            <div className="bg-green-200   flex items-center  n justify-center overflow-hidden z-50 ">
+                <div className="relative mx-auto h-full px-4  pb-20   md:pb-10 sm:max-w-xl md:max-w-full md:px-24 lg:max-w-screen-xl lg:px-8">
+                    <div className="flex flex-col items-center justify-between lg:flex-row py-16 mt-10">
+                        <div className="lg:max-w-6xl lg:pr-5 relative z-40">
+                            <h2 className="mx-auto mb-10 max-w-lg text-6xl font-medium leading-snug tracking-tight text-g1 text-center sm:leading-snug ">
+                                About Us
+                            </h2>
+                            <div className=" flex gap-10  ">
+                                <div className="w-220  border border-gray-400 rounded overflow-hidden">
+                                    <ul className="divide-y divide-gray-400 text-lg text-slate-900">
+                                        <li className="w-full px-4 py-3">
+                                            <div className="font-medium text-green-900">
+                                                Name:
+                                            </div>
+                                            <div className="text-lg text-black font-normal mt-1">
+                                                Rayko Radev
+                                            </div>
+                                        </li>
+                                        <li className="w-full px-4 py-3">
+                                            <div className="font-medium text-green-900">
+                                                Email:
+                                            </div>
+                                            <div className="text-lg text-black font-normal mt-1">
+                                                rayko_radev@yahoo.com
+                                            </div>
+                                        </li>
+                                        <li className="w-full px-4 py-3">
+                                            <div className="font-medium text-green-900">
+                                                Addrress:
+                                            </div>
+                                            <div className="text-lg text-black font-normal mt-1">
+                                                Bulgaria, Targovishte, Treti
+                                                Mart 34
+                                            </div>
+                                        </li>
+                                        <li className="w-full px-4 py-3">
+                                            <div className="font-medium text-green-900">
+                                                Postcode:
+                                            </div>
+                                            <div className="text-lg text-black font-normal mt-1">
+                                                7700
+                                            </div>
+                                        </li>
+                                        <li className="w-full px-4 py-3">
+                                            <div className="font-medium text-green-900">
+                                                Phone:
+                                            </div>
+                                            <div className="text-lg text-black font-normal mt-1">
+                                                +359899500426
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+
+                                <div className="min-w-fit hidden  lg:block  border-3 border-green-700 rounded overflow-hidden ">
+                                    {" "}
+                                    {/* map container */}
+                                    <MapContainer
+                                        center={[location.lat, location.lng]}
+                                        zoom={15}
+                                        className="h-113 w-110 "
+                                    >
+                                        <TileLayer
+                                            attribution='&copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a>'
+                                            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                                        />
+                                        <Marker
+                                            position={[
+                                                location.lat,
+                                                location.lng,
+                                            ]}
+                                        >
+                                            <Popup>
+                                                Latitude:{" "}
+                                                {location.lat.toFixed(4)},
+                                                Longitude:{" "}
+                                                {location.lng.toFixed(4)}
+                                            </Popup>
+                                        </Marker>
+                                    </MapContainer>
+                                </div>
+
+                                <div className="w-220  border border-gray-400 rounded overflow-hidden">
+                                    <ul className="divide-y divide-gray-400 text-lg text-slate-900">
+                                        <li className="w-full px-4 py-3">
+                                            <div className="font-medium text-green-900">
+                                                Name:
+                                            </div>
+                                            <div className="text-lg text-black font-normal mt-1">
+                                                Petkan Petkanov
+                                            </div>
+                                        </li>
+                                        <li className="w-full px-4 py-3">
+                                            <div className="font-medium text-green-900">
+                                                Email:
+                                            </div>
+                                            <div className="text-lg text-black font-normal mt-1">
+                                                petkan@abv.bg
+                                            </div>
+                                        </li>
+                                        <li className="w-full px-4 py-3">
+                                            <div className="font-medium text-green-900">
+                                                Addrress:
+                                            </div>
+                                            <div className="text-lg text-black font-normal mt-1">
+                                                Bulgaria, Targovishte, Slyncheva
+                                                livada 16
+                                            </div>
+                                        </li>
+                                        <li className="w-full px-4 py-3">
+                                            <div className="font-medium text-green-900">
+                                                Postcode:
+                                            </div>
+                                            <div className="text-lg text-black font-normal mt-1">
+                                                7700
+                                            </div>
+                                        </li>
+                                        <li className="w-full px-4 py-3">
+                                            <div className="font-medium text-green-900">
+                                                Phone:
+                                            </div>
+                                            <div className="text-lg text-black font-normal mt-1">
+                                                +123456789
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
 
-            <div className="mt-6 sm:mx-auto sm:w-full sm:max-w-sm">
-                <form action="#" method="POST" className="space-y-6">
-                    <div>
-                        <label
-                            htmlFor="email"
-                            className="block text-sm/6 font-medium text-gray-900"
-                        >
-                            Name
-                        </label>
-                        <div className="mt-2">
-                            <input
-                                id="name"
-                                name="name"
-                                type="text"
-                                required
-                                autoComplete="name"
-                                className="block w-full rounded-md bg-green-200/50 px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-400 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-green-700 sm:text-sm/6"
-                            />
-                        </div>
-                    </div>
-
-                    <div>
-                        <label
-                            htmlFor="breed"
-                            className="block text-sm/6 font-medium text-gray-900"
-                        >
-                            Breed
-                        </label>
-                        <div className="mt-2">
-                            <input
-                                id="breed"
-                                name="breed"
-                                type="text"
-                                required
-                                autoComplete="breed"
-                                className="block w-full rounded-md bg-green-200/50 px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-400 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-green-700 sm:text-sm/6"
-                            />
-                        </div>
-                    </div>
-
-                    <div>
-                        <div className="flex items-center justify-between">
-                            <label
-                                htmlFor="age"
-                                className="block text-sm/6 font-medium text-gray-900"
-                            >
-                                Age
-                            </label>
-                        </div>
-                        <div className="mt-2">
-                            <input
-                                id="age"
-                                name="age"
-                                type="number"
-                                required
-                                autoComplete="age"
-                                className="block w-full rounded-md bg-green-200/50 px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-400 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-green-700 sm:text-sm/6 number-color"
-                            />
-                        </div>
-                    </div>
-                    <div>
-                        <div className="flex items-center justify-between">
-                            <label
-                                htmlFor="imageUrl"
-                                className="block text-sm/6 font-medium text-gray-900"
-                            >
-                                Photo
-                            </label>
-                        </div>
-                        <div className="mt-2">
-                            <input
-                                id="imageUrl"
-                                name="imageUrl"
-                                type="text"
-                                required
-                                autoComplete="imageUrl"
-                                className="block w-full rounded-md bg-green-200/50 px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-400 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-green-700 sm:text-sm/6"
-                            />
-                        </div>
-                    </div>
-
-                    <div>
-                        <div className="flex items-center justify-between">
-                            <label className="block text-sm/6 font-medium text-gray-900">
-                                Description
-                            </label>
-                        </div>
-                        <div className="mt-2">
-                            <textarea
-                                rows={4}
-                                className="block w-full rounded-md bg-green-200/50 px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-400 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-green-700 sm:text-sm/6"
-                                defaultValue={""}
-                            />
-                        </div>
-                    </div>
-
-                    <div>
-                        <div className="flex items-center justify-between">
-                            <label
-                                htmlFor="uploadFile1"
-                                className="bg-green-200 text-gray-900 font-semibold text-base rounded w-100 h-30 flex flex-col items-center justify-center cursor-pointer border-2 border-gray-400 border-dashed mt-2"
-                            >
-                                <svg
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    className="w-11 mb-3 fill-green-700"
-                                    viewBox="0 0 32 32"
-                                >
-                                    <path
-                                        d="M23.75 11.044a7.99 7.99 0 0 0-15.5-.009A8 8 0 0 0 9 27h3a1 1 0 0 0 0-2H9a6 6 0 0 1-.035-12 1.038 1.038 0 0 0 1.1-.854 5.991 5.991 0 0 1 11.862 0A1.08 1.08 0 0 0 23 13a6 6 0 0 1 0 12h-3a1 1 0 0 0 0 2h3a8 8 0 0 0 .75-15.956z"
-                                        data-original="#000000"
-                                    />
-                                    <path
-                                        d="M20.293 19.707a1 1 0 0 0 1.414-1.414l-5-5a1 1 0 0 0-1.414 0l-5 5a1 1 0 0 0 1.414 1.414L15 16.414V29a1 1 0 0 0 2 0V16.414z"
-                                        data-original="#000000"
-                                    />
-                                </svg>
-                                Upload file
-                                <input
-                                    type="file"
-                                    id="uploadFile1"
-                                    className="hidden"
-                                />
-                                <p className="text-xs font-medium text-gray-700 mt-2">
-                                    PNG, JPG SVG, WEBP, and GIF are Allowed.
-                                </p>
-                            </label>
-                        </div>
-                    </div>
-
-                    <div>
-                        <button
-                            type="submit"
-                            className="flex w-full justify-center rounded-md bg-green-700 px-3 py-1.5 text-sm/6 font-semibold text-white shadow-xs hover:bg-green-600 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-                        >
-                            Create
-                        </button>
-                    </div>
-                </form>
-            </div>
-        </div>
+            {/* <div style={{ height: "100vh", width: "100%" }}>
+                <h2>Map with Predefined Coordinates</h2>
+                <MapContainer
+                    center={[location.lat, location.lng]}
+                    zoom={13}
+                    style={{ height: "90%", width: "100%" }}
+                >
+                    <TileLayer
+                        attribution='&copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a>'
+                        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                    />
+                    <Marker position={[location.lat, location.lng]}>
+                        <Popup>
+                            Latitude: {location.lat.toFixed(4)}, Longitude:{" "}
+                            {location.lng.toFixed(4)}
+                        </Popup>
+                    </Marker>
+                </MapContainer>
+            </div> */}
+        </>
     );
 }
