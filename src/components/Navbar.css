@@ -28,7 +28,7 @@
     height: 6px;
 }
 
-.header-links li.active span::before {
+.header-links a.active span::before {
     background-color: #008236;
 }
 

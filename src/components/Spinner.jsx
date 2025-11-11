@@ -1,6 +1,6 @@
 export default function Spinner() {
     return (
-        <div className="flex items-center justify-center w-full h-[100vh] text-green-700 ">
+        <div className="flex items-center justify-center w-full h-[70vh] text-green-700 ">
             <div>
                 <h1 className="text-4xl md:text-7xl font-bold flex items-center">
                     L

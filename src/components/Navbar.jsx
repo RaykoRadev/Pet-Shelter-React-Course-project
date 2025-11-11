@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import "./Navbar.css";
 
 export default function Navbar() {
@@ -12,40 +12,75 @@ export default function Navbar() {
             </Link>
             <nav className=" header-links contents font-semibold text-base lg:text-lg">
                 <ul className="flex items-center ml-4 xl:ml-8 mr-auto">
-                    <li className="p-3 xl:p-6 active">
-                        <Link to="/">
+                    <li className="p-3 xl:p-6">
+                        <NavLink
+                            className={({ isActive }) =>
+                                isActive ? "active" : ""
+                            }
+                            to="/"
+                        >
                             <span>Home</span>
-                        </Link>
+                        </NavLink>
                     </li>
                     <li className="p-3 xl:p-6">
-                        <Link to="/pets/catalog">
+                        <NavLink
+                            className={({ isActive }) =>
+                                isActive ? "active" : ""
+                            }
+                            to="/pets/catalog"
+                        >
                             <span>Catalog</span>
-                        </Link>
+                        </NavLink>
                     </li>
                     <li className="p-3 xl:p-6">
-                        <Link to="/pets/create">
+                        <NavLink
+                            className={({ isActive }) =>
+                                isActive ? "active" : ""
+                            }
+                            to="/pets/create"
+                        >
                             <span>Create</span>
-                        </Link>
+                        </NavLink>
                     </li>
                     <li className="p-3 xl:p-6">
-                        <Link to="/pets/test">
+                        <NavLink
+                            className={({ isActive }) =>
+                                isActive ? "active" : ""
+                            }
+                            to="/pets/test"
+                        >
                             <span>Test</span>
-                        </Link>
+                        </NavLink>
                     </li>
                     <li className="p-3 xl:p-6">
-                        <Link to="/pets/spinner">
+                        <NavLink
+                            className={({ isActive }) =>
+                                isActive ? "active" : ""
+                            }
+                            to="/pets/spinner"
+                        >
                             <span>Spinner</span>
-                        </Link>
+                        </NavLink>
                     </li>
                     <li className="p-3 xl:p-6">
-                        <Link to="/about-us">
+                        <NavLink
+                            className={({ isActive }) =>
+                                isActive ? "active" : ""
+                            }
+                            to="/about-us"
+                        >
                             <span>About us</span>
-                        </Link>
+                        </NavLink>
                     </li>
                     <li className="p-3 xl:p-6">
-                        <Link to="/pets/delete">
+                        <NavLink
+                            className={({ isActive }) =>
+                                isActive ? "active" : ""
+                            }
+                            to="/pets/delete"
+                        >
                             <span>Delete</span>
-                        </Link>
+                        </NavLink>
                     </li>
                 </ul>
             </nav>
