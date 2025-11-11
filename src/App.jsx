@@ -15,8 +15,15 @@ import AboutUs from "./components/AboutUs";
 
 function App() {
     return (
-        <div className="flex flex-col min-h-screen bg-green-200 text-black overflow-hidden">
+        <div className="relative flex flex-col min-h-screen bg-green-200 text-black overflow-hidden">
             <Navbar />
+
+            {/* Left Glow */}
+            <div className="pointer-events-none absolute top-0 left-0 h-full w-1/6 bg-gradient-to-r from-green-400/40 via-green-300/20 to-transparent blur-3xl"></div>
+
+            {/* Right Glow */}
+            <div className="pointer-events-none absolute top-0 right-0 h-full w-1/6 bg-gradient-to-l from-green-400/40 via-green-300/20 to-transparent blur-3xl"></div>
+
             <div className="flex-grow">
                 <Routes>
                     <Route path="/" element={<Home />} />
