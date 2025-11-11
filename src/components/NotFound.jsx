@@ -1,4 +1,6 @@
-export default function Test() {
+import { Link } from "react-router-dom";
+
+export default function NotFound() {
     return (
         <div className="gradient text-white min-h-[70vh] flex items-center">
             <div className="container mx-auto p-4 flex items-center">
@@ -16,12 +18,12 @@ export default function Test() {
                         You may have mistyped the address or the page may have
                         moved.
                     </div>
-                    <a
-                        href="/"
+                    <Link
+                        to="/"
                         className="flex w-full justify-center rounded-md bg-green-700 px-3 py-1.5 text-sm/6 font-semibold text-white shadow-xs hover:bg-green-600 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                     >
                         Go Home
-                    </a>
+                    </Link>
                 </div>
             </div>
         </div>
