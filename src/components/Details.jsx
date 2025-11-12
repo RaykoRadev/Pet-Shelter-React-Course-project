@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { GetOne } from "../services/petServices";
+import { getOne } from "../services/petServices";
 import { useParams } from "react-router-dom";
 
 export default function Details() {
@@ -9,7 +9,7 @@ export default function Details() {
 
     useEffect(() => {
         const post = async () => {
-            const data = await GetOne(petId);
+            const data = await getOne(petId);
             setPet(data);
         };
 
