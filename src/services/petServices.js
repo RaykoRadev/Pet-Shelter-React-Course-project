@@ -105,3 +105,15 @@ export function getOwnedPosts(userId) {
 export function getLikedPosts(userId) {
     return get(endpoints.likedPosts + userId);
 }
+
+export async function getHomePhotos(userId) {
+    // return get(endpoints.likedPosts + userId);
+
+    try {
+        const res = await fetch(`http://localhost:3000/animals/home-photos`);
+        const post = await res.json();
+        return post;
+    } catch (err) {
+        alert(err.message);
+    }
+}
