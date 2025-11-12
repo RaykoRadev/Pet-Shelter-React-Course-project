@@ -1,6 +1,19 @@
+import { useEffect } from "react";
 import { Link } from "react-router-dom";
+import { login } from "../services/userService";
 
 export default function Login() {
+    const loginSubmitHandler = async (e) => {
+        e.preventDefault();
+
+        const formData = new FormData(e.target);
+        const email = formData.get("email");
+        const password = formData.get("password");
+
+        const user = await login(email, password);
+        console.log(user);
+    };
+
     return (
         <>
             <div className="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
@@ -16,7 +29,11 @@ export default function Login() {
                 </div>
 
                 <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-                    <form action="#" method="POST" className="space-y-6">
+                    <form
+                        method="POST"
+                        className="space-y-6"
+                        onSubmit={loginSubmitHandler}
+                    >
                         <div>
                             <label
                                 htmlFor="email"
@@ -44,14 +61,6 @@ export default function Login() {
                                 >
                                     Password
                                 </label>
-                                <div className="text-sm">
-                                    <a
-                                        href="#"
-                                        className="font-semibold text-green-700 hover:text-green-600"
-                                    >
-                                        Forgot password?
-                                    </a>
-                                </div>
                             </div>
                             <div className="mt-2">
                                 <input
