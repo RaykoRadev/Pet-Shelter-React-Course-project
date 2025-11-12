@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
-import { getOne } from "../services/petServices";
+import { getOne, sendDisike, sendLike } from "../services/petServices";
 import { useParams } from "react-router-dom";
+import { getUserData } from "../utils/localStorageManager";
 
 export default function Details() {
     const [pet, setPet] = useState({});
+    const [liked, setLiked] = useState(false);
 
     const petId = useParams().petId;
 
@@ -14,7 +16,27 @@ export default function Details() {
         };
 
         post();
-    }, [petId]);
+    }, [petId, liked]);
+
+    const amountLikes = pet.liked?.length;
+
+    const likeHandler = (e, postId) => {
+        const userId = getUserData()._id;
+        console.log(userId);
+
+        const data = async () => {
+            if (liked) {
+                await sendDisike(postId, { liked: userId });
+                setLiked(false);
+            } else {
+                console.log("step 1");
+
+                await sendLike(postId, { liked: userId });
+                setLiked(true);
+            }
+        };
+        data();
+    };
 
     return (
         <div className="bg-green-100 mt-30">
@@ -59,7 +81,7 @@ export default function Details() {
                             <span className="text-xl font-bold text-slate-900">
                                 Likes:{" "}
                             </span>{" "}
-                            4
+                            {amountLikes}
                         </p>
 
                         <p className="flex flex-wrap gap-3 mt-4">
@@ -83,6 +105,7 @@ export default function Details() {
                                 Delete
                             </button>
                             <button
+                                onClick={(e) => likeHandler(e, pet._id)}
                                 type="button"
                                 className="flex w-40 justify-center gap-4 rounded-md bg-green-700 px-3 py-1.5 text-sm/6 font-semibold text-white shadow-xs hover:bg-green-600 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                             >

@@ -1,20 +1,55 @@
+import { getUserData } from "../utils/localStorageManager";
+import { del, get, post, put } from "./api";
+
 // export async function getAll() {
 //     try {
 //         const res = await fetch("http://localhost:3000/animals");
-//         const data = await res.json();
-//         return data;
+//         const posts = await res.json();
+//         return posts;
 //     } catch (err) {
 //         alert(err.message);
 //     }
 // }
 
-import { del, get, post, put } from "./api";
-
-// export async function getOne(id) {
+// export async function getOne(postId, userId) {
 //     try {
-//         const res = await fetch(`http://localhost:3000/animals/${id}`);
-//         const data = await res.json();
-//         return data;
+//         const res = await fetch(`http://localhost:3000/animals/${postId}`);
+//         const post = await res.json();
+//         return post;
+//     } catch (err) {
+//         alert(err.message);
+//     }
+// }
+
+// export async function editOne(data, postId) {
+//     try {
+//         const res = await fetch(`http://localhost:3000/animals/${postId}`,{
+//             method: 'PUT',
+//             headers: {
+//                 "X-Authorization": getUserData(),
+//                 "Content-Type" : "application/json"
+//             },
+//             body:JSON.stringify(data)
+//         });
+//         const post = await res.json();
+//         return post;
+//     } catch (err) {
+//         alert(err.message);
+//     }
+// }
+
+// export async function createOne(data) {
+//     try {
+//         const res = await fetch(`http://localhost:3000/animals`,{
+//             method: 'POST',
+//             headers: {
+//                 "X-Authorization": getUserData(),
+//                 "Content-Type" : "application/json"
+//             },
+//             body:JSON.stringify(data)
+//         });
+//         const post = await res.json();
+//         return post;
 //     } catch (err) {
 //         alert(err.message);
 //     }
@@ -31,38 +66,73 @@ const endpoints = {
     likedPosts: "/animals?likes=userId",
 };
 
-export function getAll() {
+export function getAll(filter) {
+    //* filter contained liked or author to get owned or liked post! empry filter get All posts
     return get(endpoints.getAll);
 }
 
-export function getOne(id) {
-    return get(endpoints.getOne + id);
+export function getOne(postId, userId) {
+    return get(endpoints.getOne + postId, userId);
 }
 
-export function editOne(id, data) {
-    return put(endpoints.getOne + id, data);
+export function editOne(postId, data) {
+    return put(endpoints.getOne + postId, data);
 }
 
 export function createOne(data) {
     return post(endpoints.create, data);
 }
 
-export function deleteOne(id) {
-    return del(endpoints.getOne + id);
+export function deleteOne(postId) {
+    return del(endpoints.getOne + postId);
 }
 
-export function sendLike(id) {
-    return put(endpoints.like + id);
+export async function sendLike(postId, data) {
+    // return put(endpoints.like + postId);
+    try {
+        const res = await fetch(
+            `http://localhost:3000/animals/likes/${postId}`,
+            {
+                method: "POST",
+                headers: {
+                    "X-Authorization": getUserData().accessToken,
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(data),
+            }
+        );
+        // const post = await res.json();
+        return post;
+    } catch (err) {
+        alert(err.message);
+    }
 }
 
-export function sendDisike(id) {
-    return put(endpoints.dislike + id);
+export async function sendDisike(postId, data) {
+    // return put(endpoints.dislike + userId);
+    try {
+        const res = await fetch(
+            `http://localhost:3000/animals/dislikes/${postId}`,
+            {
+                method: "POST",
+                headers: {
+                    "X-Authorization": getUserData().accessToken,
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(data),
+            }
+        );
+        // const post = await res.json();
+        return post;
+    } catch (err) {
+        alert(err.message);
+    }
 }
 
-export function getOwnedPosts(id) {
-    return get(endpoints.ownedPosts + id);
+export function getOwnedPosts(userId) {
+    return get(endpoints.ownedPosts + userId);
 }
 
-export function getLikedPosts(id) {
-    return get(endpoints.likedPosts + id);
+export function getLikedPosts(userId) {
+    return get(endpoints.likedPosts + userId);
 }

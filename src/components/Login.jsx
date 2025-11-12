@@ -1,17 +1,17 @@
-import { useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { login } from "../services/userService";
 
 export default function Login() {
+    const navigate = useNavigate();
     const loginSubmitHandler = async (e) => {
         e.preventDefault();
-
         const formData = new FormData(e.target);
         const email = formData.get("email");
         const password = formData.get("password");
 
         const user = await login(email, password);
         console.log(user);
+        navigate("/");
     };
 
     return (
