@@ -13,7 +13,7 @@ export default function CreateEdit() {
             </div>
 
             <div className="mt-6 sm:mx-auto sm:w-full sm:max-w-sm">
-                <form action="#" method="POST" className="space-y-6">
+                <form method="POST" className="space-y-6">
                     <div>
                         <label
                             htmlFor="email"

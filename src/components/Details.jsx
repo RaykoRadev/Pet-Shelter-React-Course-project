@@ -7,7 +7,7 @@ export default function Details() {
     const [pet, setPet] = useState({});
     const [isLiked, setIsLiked] = useState(false);
 
-    const userId = "69034fe08fa90fdeb17d6eb5";
+    const userId = getUserData()._id;
     const petId = useParams().petId;
 
     useEffect(() => {
