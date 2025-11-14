@@ -118,7 +118,7 @@ body {
     );
 }
 #carousel div.prev img {
-    transition: transform 0.5s ease, filter 0.5s ease;
+    transition: transform 1s ease, filter 1s ease;
 }
 
 #carousel div.prev :hover img {
@@ -179,7 +179,7 @@ body {
 }
 
 #carousel div.next img {
-    transition: transform 0.5s ease, filter 0.5s ease;
+    transition: transform 1s ease, filter 1s ease;
 }
 
 #carousel div.next :hover img {

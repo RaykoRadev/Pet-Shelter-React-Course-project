@@ -66,7 +66,7 @@ const endpoints = {
     likedPosts: "/animals?likes=userId",
 };
 
-export function getAll(filter) {
+export function getAll() {
     //* filter contained liked or author to get owned or liked post! empry filter get All posts
     return get(endpoints.getAll);
 }

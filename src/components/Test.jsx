@@ -1,30 +1,64 @@
+import { useState } from "react";
+
 export default function Test() {
-    //todo delete modal
+    const [selectedFilters, setSelectedFilters] = useState({
+        category: "",
+        sorting: "",
+    });
+
+    const handleFilterChange = (e) => {
+        const { name, value } = e.target;
+        setSelectedFilters((prev) => ({ ...prev, [name]: value }));
+    };
 
     return (
-        <div className="gradient text-white min-h-[70vh] flex items-center">
-            <div className="container mx-auto p-4 flex items-center">
-                <div className="ml-70  text-center p-4">
-                    <img src="/sad-dog.png" alt="Not Found" />
-                </div>
-                <div className="ml-30 w-100 md:w-7/20 text-center md:text-left p-4">
-                    <div className="text-6xl text-center text-green-700 font-medium">
-                        404
-                    </div>
-                    <div className="text-xl text-center text-green-700 md:text-3xl font-medium mb-4">
-                        Oops. This page has gone missing.
-                    </div>
-                    <div className="text-lg text-center text-green-700 mb-8">
-                        You may have mistyped the address or the page may have
-                        moved.
-                    </div>
-                    <a
-                        href="/"
-                        className="flex w-full justify-center rounded-md bg-green-700 px-3 py-1.5 text-sm/6 font-semibold text-white shadow-xs hover:bg-green-600 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+        <div className="p-4 mx-auto max-w-md bg-green-200 rounded-lg shadow-lg">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                {/* Color Filter */}
+                <div>
+                    {/* <label
+                        htmlFor="category"
+                        className="block text-sm font-medium text-gray-700"
                     >
-                        Go Home
-                    </a>
+                        Category
+                    </label> */}
+                    <select
+                        id="category"
+                        name="category"
+                        value={selectedFilters.category}
+                        // aria-placeholder="Select category"
+                        onChange={handleFilterChange}
+                        className="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md"
+                    >
+                        <option value="">Select category:</option>
+                        <option value="specises">Specises</option>
+                        <option value="breed">Breed</option>
+                        <option value="age">Age</option>
+                    </select>
                 </div>
+
+                {/* Size Filter */}
+                <div>
+                    {/* <label
+                        htmlFor="sorting"
+                        className="block text-sm font-medium text-gray-700"
+                    >
+                        Sorting
+                    </label> */}
+                    <select
+                        id="sorting"
+                        name="sorting"
+                        value={selectedFilters.sorting}
+                        // aria-placeholder="Sort by"
+                        onChange={handleFilterChange}
+                        className="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md"
+                    >
+                        <option value="">Sort by:</option>
+                        <option value="ascending">Ascendig</option>
+                        <option value="decending">Desending</option>
+                    </select>
+                </div>
+                {/* //todo find a sort button and the handle to be transfered here from the 'select'*/}
             </div>
         </div>
     );
