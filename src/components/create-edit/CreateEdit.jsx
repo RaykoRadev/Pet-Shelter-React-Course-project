@@ -1,8 +1,18 @@
+import { useNavigate } from "react-router-dom";
+import { createOne } from "../../services/petServices";
+
 export default function CreateEdit() {
+    const navigate = useNavigate();
+
     const submitFormHandler = (e) => {
         e.preventDefault();
         const formData = new FormData(e.target);
-        console.log(Object.fromEntries(formData));
+        // console.log(Object.fromEntries(formData));
+
+        (async () => {
+            const data = await createOne(Object.fromEntries(formData));
+            navigate("/pets/catalog");
+        })();
     };
 
     return (
