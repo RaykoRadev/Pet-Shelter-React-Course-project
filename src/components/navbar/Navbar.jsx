@@ -1,7 +1,12 @@
 import { Link, NavLink } from "react-router-dom";
 import "./Navbar.css";
+import { clearUserData } from "../../utils/localStorageManager";
 
 export default function Navbar() {
+    const logoutHandler = () => {
+        clearUserData();
+        //todo redirect to the home page
+    };
     return (
         <header className="fixed, top-0 w-full z-50 shadow-lg h-24 hidden md:flex">
             <Link
@@ -104,9 +109,9 @@ export default function Navbar() {
                         </a>
                     </li>
                     <li className="p-3 xl:p-6 ">
-                        <a href="">
+                        <Link onClick={logoutHandler}>
                             <span>Logout</span>
-                        </a>
+                        </Link>
                     </li>
                 </ul>
             </div>
