@@ -59,6 +59,13 @@ export default function Details() {
 
                         <p className="flex flex-wrap gap-3 mt-4">
                             <span className="text-xl font-bold text-slate-900">
+                                Species:{" "}
+                            </span>{" "}
+                            {pet.species}
+                        </p>
+
+                        <p className="flex flex-wrap gap-3 mt-4">
+                            <span className="text-xl font-bold text-slate-900">
                                 Breed:{" "}
                             </span>{" "}
                             {pet.breed}

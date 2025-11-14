@@ -1,4 +1,10 @@
 export default function CreateEdit() {
+    const submitFormHandler = (e) => {
+        e.preventDefault();
+        const formData = new FormData(e.target);
+        console.log(Object.fromEntries(formData));
+    };
+
     return (
         <div className="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
             <div className="sm:mx-auto sm:w-full sm:max-w-sm">
@@ -13,7 +19,11 @@ export default function CreateEdit() {
             </div>
 
             <div className="mt-6 sm:mx-auto sm:w-full sm:max-w-sm">
-                <form method="POST" className="space-y-6">
+                <form
+                    method="POST"
+                    className="space-y-6"
+                    onSubmit={submitFormHandler}
+                >
                     <div>
                         <label
                             htmlFor="email"
@@ -28,6 +38,25 @@ export default function CreateEdit() {
                                 type="text"
                                 required
                                 autoComplete="name"
+                                className="block w-full rounded-md bg-green-200/50 px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-400 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-green-700 sm:text-sm/6"
+                            />
+                        </div>
+                    </div>
+
+                    <div>
+                        <label
+                            htmlFor="species"
+                            className="block text-sm/6 font-medium text-gray-900"
+                        >
+                            Species
+                        </label>
+                        <div className="mt-2">
+                            <input
+                                id="species"
+                                name="species"
+                                type="text"
+                                required
+                                autoComplete="species"
                                 className="block w-full rounded-md bg-green-200/50 px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-400 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-green-700 sm:text-sm/6"
                             />
                         </div>
@@ -102,6 +131,7 @@ export default function CreateEdit() {
                         <div className="mt-2">
                             <textarea
                                 rows={4}
+                                name="description"
                                 className="block w-full rounded-md bg-green-200/50 px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-400 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-green-700 sm:text-sm/6"
                                 defaultValue={""}
                             />
@@ -132,6 +162,7 @@ export default function CreateEdit() {
                                 <input
                                     type="file"
                                     id="uploadFile1"
+                                    // name="uploadedPhoto"
                                     className="hidden"
                                 />
                                 <p className="text-xs font-medium text-gray-700 mt-2">

@@ -4,6 +4,7 @@ export default function CatalogItem({
     _id,
     age,
     author,
+    species,
     breed,
     createdAt,
     description,
@@ -25,6 +26,9 @@ export default function CatalogItem({
                     <div className="text-center">
                         <h3 className="text-sm lg:text-[15px] font-semibold text-slate-900">
                             Name: {name}
+                        </h3>
+                        <h3 className="text-sm lg:text-[15px] font-semibold text-slate-900  mt-2">
+                            Species: {species}
                         </h3>
                         <h3 className="text-sm lg:text-[15px] font-semibold text-slate-900  mt-2">
                             Breed: {breed}

@@ -1,4 +1,6 @@
 export default function Test() {
+    //todo delete modal
+
     return (
         <div className="gradient text-white min-h-[70vh] flex items-center">
             <div className="container mx-auto p-4 flex items-center">
