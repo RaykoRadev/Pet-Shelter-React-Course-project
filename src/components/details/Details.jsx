@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react";
-import { getOne, sendDisike, sendLike } from "../services/petServices";
+import { getOne, sendDisike, sendLike } from "../../services/petServices";
 import { useParams } from "react-router-dom";
-import { getUserData } from "../utils/localStorageManager";
+import { getUserData } from "../../utils/localStorageManager";
 
 export default function Details() {
     const [pet, setPet] = useState({});
     const [isLiked, setIsLiked] = useState(false);
 
-    const userId = getUserData()._id;
+    const userId = getUserData()?._id;
     const petId = useParams().petId;
 
     useEffect(() => {

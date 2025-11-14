@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { getHomePhotos } from "../services/petServices";
-import HomePhotos from "./HomePhoto";
+import { getHomePhotos } from "../../services/petServices";
+import HomePhotos from "../home-photo/HomePhoto";
 
 export default function Home() {
     const [photos, setPhotos] = useState([]);

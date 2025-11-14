@@ -1,5 +1,5 @@
 import { Link, useNavigate } from "react-router-dom";
-import { login } from "../services/userService";
+import { login } from "../../services/userService";
 
 export default function Login() {
     const navigate = useNavigate();

@@ -1,18 +1,18 @@
 import { Route, Routes } from "react-router-dom";
-import Footer from "./components/Footer";
-import Home from "./components/Home";
-import Login from "./components/Login";
-import Navbar from "./components/Navbar";
-import Register from "./components/Register";
-import Catalog from "./components/Catalog";
+import Footer from "./components/footer/Footer";
+import Home from "./components/home/Home";
+import Login from "./components/login/Login";
 import Test from "./components/Test";
 import Test1 from "./components/Test1";
-import Delete from "./components/Delete";
-import Details from "./components/Details";
-import Spinner from "./components/Spinner";
-import CreateEdit from "./components/Create-edit";
-import AboutUs from "./components/AboutUs";
-import NotFound from "./components/NotFound";
+import NotFound from "./components/not-found/NotFound";
+import Register from "./components/register/Register";
+import CreateEdit from "./components/create-edit/CreateEdit";
+import Details from "./components/details/Details";
+import Spinner from "./components/spinner/Spinner";
+import Delete from "./components/delete/Delete";
+import AboutUs from "./components/about-us/AboutUs";
+import Navbar from "./components/navbar/Navbar";
+import Catalog from "./components/catalog/Catalog";
 
 function App() {
     return (

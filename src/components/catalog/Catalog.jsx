@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import { getAll } from "../services/petServices";
-import CatalogItem from "./CatalogItem";
-import Spinner from "./Spinner";
+import { getAll } from "../../services/petServices";
+import CatalogItem from "../catalog-item/CatalogItem";
+import Spinner from "../spinner/Spinner";
 
 export default function Catalog() {
     const [pets, setPets] = useState([]);
