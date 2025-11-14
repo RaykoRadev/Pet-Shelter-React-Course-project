@@ -6,7 +6,7 @@ body {
     position: relative;
     overflow: hidden;
     height: 600px;
-    height: auto;
+    /* height: auto; */
     cursor: inherit;
 }
 
@@ -83,18 +83,20 @@ body {
         opacity 1s, z-index 1s;
 }
 
-.img-wrapper img {
-    position: absolute;
+.img-wrap img {
+    /* position: absolute; */
     width: 100%;
     height: 100%;
-    object-fit: contain;
+    object-fit: fill;
+    transform: scale(1.3);
     transition: transform 0.5s, opacity 0.5s, filter 0.5s;
     mix-blend-mode: normal;
 }
 
 #carousel div.prev {
     z-index: 5;
-    left: 28%;
+    /* left: 28%; */
+    left: 18%;
     width: 280px;
     height: 280px;
     transform: translateY(0%) translateX(-50%);
@@ -130,7 +132,8 @@ body {
 
 #carousel div.prevLeftSecond {
     z-index: 2;
-    left: 40%;
+    /* left: 40%; */
+    left: 35%;
     width: 230px;
     height: 230px;
     transform: translateY(5%) translateX(-65%);
@@ -158,12 +161,13 @@ body {
 
 #carousel div.selected:hover img {
     filter: brightness(70%);
-    transform: scale(1.2);
+    transform: scale(1.6);
 }
 
 #carousel div.next {
     z-index: 5;
-    left: 72%;
+    /* left: 72%; */
+    left: 82%;
     width: 280px;
     height: 280px;
     transform: translateY(0%) translateX(-50%);
@@ -189,7 +193,8 @@ body {
 
 #carousel div.nextRightSecond {
     z-index: 2;
-    left: 60%;
+    /* left: 60%; */
+    left: 65%;
     width: 230px;
     height: 230px;
     transform: translateY(5%) translateX(-35%);
