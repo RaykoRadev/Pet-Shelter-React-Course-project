@@ -57,7 +57,7 @@ export default function HomePhotos({ photos }) {
 
         return relative > 2 ? "hideRight" : "hideLeft";
     };
-
+    //todo last ohoto to be on the top
     return (
         <div id="carousel-area">
             <div id="carousel">

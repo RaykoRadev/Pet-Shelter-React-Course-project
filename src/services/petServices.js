@@ -117,3 +117,13 @@ export async function getHomePhotos(userId) {
         alert(err.message);
     }
 }
+
+// export async function getSorted() {
+//     try {
+//         const res = await fetch(`http://localhost:3000/animals/sorted`);
+//         const post = await res.json();
+//         return post;
+//     } catch (err) {
+//         alert(err.message);
+//     }
+// }

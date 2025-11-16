@@ -7,6 +7,7 @@ export default function CreateEdit() {
     const [imgLink, setImgLink] = useState(null);
     const navigate = useNavigate();
 
+    //upload photo to external API
     async function uploadPhotoHendler(e) {
         const file = e.target.files[0];
         console.log(file);
@@ -123,6 +124,7 @@ export default function CreateEdit() {
                         </div>
                     </div>
 
+                    {/* showing the fields according uploadet photo */}
                     {imgLink && (
                         <div>
                             <div className="flex items-center justify-between">
