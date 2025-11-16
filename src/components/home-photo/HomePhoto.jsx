@@ -3,7 +3,7 @@ import "./HomePhotos.css";
 import { Link } from "react-router-dom";
 
 export default function HomePhotos({ photos }) {
-    const [selectedIndex, setSelectedIndex] = useState(3);
+    const [selectedIndex, setSelectedIndex] = useState(0);
 
     const moveToSelected = (direction) => {
         if (direction === "next") {
@@ -57,7 +57,7 @@ export default function HomePhotos({ photos }) {
 
         return relative > 2 ? "hideRight" : "hideLeft";
     };
-    //todo last ohoto to be on the top
+
     return (
         <div id="carousel-area">
             <div id="carousel">
