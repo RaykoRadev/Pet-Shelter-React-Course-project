@@ -13,24 +13,18 @@ export default function Test() {
 
     return (
         <div className="p-4 mx-auto max-w-md bg-green-200 rounded-lg shadow-lg">
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                 {/* Color Filter */}
                 <div>
-                    {/* <label
-                        htmlFor="category"
-                        className="block text-sm font-medium text-gray-700"
-                    >
-                        Category
-                    </label> */}
                     <select
                         id="category"
                         name="category"
                         value={selectedFilters.category}
                         // aria-placeholder="Select category"
                         onChange={handleFilterChange}
-                        className="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md"
+                        className="mt-1 block w-full text-center py-2 text-base border border-green-700 focus:outline-none focus:ring--green-700 focus:border--green-700 sm:text-sm rounded-md"
                     >
-                        <option value="">Select category:</option>
+                        <option value="">Category:</option>
                         <option value="specises">Specises</option>
                         <option value="breed">Breed</option>
                         <option value="age">Age</option>
@@ -39,24 +33,27 @@ export default function Test() {
 
                 {/* Size Filter */}
                 <div>
-                    {/* <label
-                        htmlFor="sorting"
-                        className="block text-sm font-medium text-gray-700"
-                    >
-                        Sorting
-                    </label> */}
                     <select
                         id="sorting"
                         name="sorting"
                         value={selectedFilters.sorting}
                         // aria-placeholder="Sort by"
                         onChange={handleFilterChange}
-                        className="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md"
+                        className="mt-1 block w-full text-center py-2 text-base border border-green-700 focus:outline--green-700 focus:ring--green-700 focus:border--green-700 sm:text-sm rounded-md"
                     >
                         <option value="">Sort by:</option>
                         <option value="ascending">Ascendig</option>
                         <option value="decending">Desending</option>
                     </select>
+                </div>
+                <div>
+                    <button
+                        type="button"
+                        className="mt-1 block w-full py-2 text-base border border-green-700 text-center focus:outline--green-700 focus:ring--green-700 focus:border--green-700 sm:text-sm rounded-md hover:bg-green-700 hover:text-white"
+                        // className="flex w-full justify-center rounded-md bg-green-200 border border-green-700 px-3 py-1.5 text-sm/6 font-semibold text-black shadow-xs hover:bg-green-700 hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                    >
+                        Sort
+                    </button>
                 </div>
                 {/* //todo find a sort button and the handle to be transfered here from the 'select'*/}
             </div>
