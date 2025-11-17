@@ -1,10 +1,20 @@
-export default function Delete() {
+import { useNavigate } from "react-router-dom";
+import { deleteOne } from "../../services/petServices";
+
+export default function DeleteModal({ postId, onClose }) {
+    const navigate = useNavigate();
+    const deletePostHandler = async () => {
+        await deleteOne(postId);
+        navigate("/pets/catalog");
+    };
+
     return (
-        <div>
+        <div className="backdrop" onClick={onClose}>
             <div id="modal">
                 <div className="fixed inset-0 p-4 flex flex-wrap justify-center items-center w-full h-full z-[1000] before:fixed before:inset-0 before:w-full before:h-full before:bg-[rgba(0,0,0,0.5)] overflow-auto">
                     <div className="w-full max-w-md bg-green-100 shadow-lg rounded-lg p-6 relative">
                         <svg
+                            onClick={onClose}
                             id="closeIcon"
                             xmlns="http://www.w3.org/2000/svg"
                             className="w-3.5 h-3.5 cursor-pointer shrink-0 fill-gray-400 hover:fill-green-700 float-right"
@@ -38,21 +48,18 @@ export default function Delete() {
                                 <h4 className="text-slate-900 text-lg font-semibold">
                                     Are you sure you want to delete it?
                                 </h4>
-                                {/* <p className="text-sm text-slate-600 mt-3">
-                                    Lorem ipsum dolor sit amet, consectetur
-                                    adipiscing elit. Sed auctor auctor arcu, at
-                                    fermentum dui.
-                                </p> */}
                             </div>
                         </div>
                         <div className="flex flex-col space-y-3">
                             <button
+                                onClick={deletePostHandler}
                                 type="button"
                                 className="px-4 py-2 rounded-md cursor-pointer text-white text-sm font-medium tracking-wide bg-green-700 hover:bg-green-600 active:bg-green-700"
                             >
                                 Delete
                             </button>
                             <button
+                                onClick={onClose}
                                 id="closeButton"
                                 type="button"
                                 className="px-4 py-2 rounded-md cursor-pointer text-slate-900 text-sm font-medium tracking-wide bg-green-200 hover:bg-green-100 hover:border-2 hover:border-green-300 active:bg-green-200"

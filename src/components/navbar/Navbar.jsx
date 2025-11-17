@@ -77,16 +77,6 @@ export default function Navbar() {
                             <span>About us</span>
                         </NavLink>
                     </li>
-                    <li className="p-3 xl:p-6">
-                        <NavLink
-                            className={({ isActive }) =>
-                                isActive ? "active" : ""
-                            }
-                            to="/pets/delete"
-                        >
-                            <span>Delete</span>
-                        </NavLink>
-                    </li>
                 </ul>
             </nav>
 

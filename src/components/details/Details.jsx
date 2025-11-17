@@ -2,15 +2,18 @@ import { useEffect, useState } from "react";
 import { getOne, sendDisike, sendLike } from "../../services/petServices";
 import { useParams } from "react-router-dom";
 import { getUserData } from "../../utils/localStorageManager";
+import DeleteModal from "../delete-modal/DeleteModal";
 
 export default function Details() {
     const [pet, setPet] = useState({});
     const [isLiked, setIsLiked] = useState(false);
+    const [modal, setShowModal] = useState(false);
 
     const userId = getUserData()?._id;
     const petId = useParams().petId;
 
     useEffect(() => {
+        const abortController = new AbortController();
         const post = async () => {
             const data = await getOne(petId);
             const isLiked = data.liked.includes(userId);
@@ -18,7 +21,10 @@ export default function Details() {
             setPet(data);
         };
         post();
-    }, [petId, isLiked]);
+        return () => {
+            abortController.abort();
+        };
+    }, [petId, modal]);
 
     const amountLikes = pet.liked?.length;
 
@@ -37,6 +43,10 @@ export default function Details() {
             }
         };
         data();
+    };
+
+    const closeDeleteModal = () => {
+        setShowModal(false);
     };
 
     return (
@@ -106,12 +116,21 @@ export default function Details() {
                             >
                                 Edit
                             </button>
+
                             <button
+                                onClick={() => setShowModal(true)}
                                 type="button"
                                 className="flex w-full justify-center rounded-md bg-green-700 px-3 py-1.5 text-sm/6 font-semibold text-white shadow-xs hover:bg-green-600 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                             >
                                 Delete
                             </button>
+                            {/* </Link> */}
+                            {modal && (
+                                <DeleteModal
+                                    postId={pet._id}
+                                    onClose={closeDeleteModal}
+                                />
+                            )}
                             <button
                                 onClick={(e) => likeHandler(e, pet._id)}
                                 type="button"
