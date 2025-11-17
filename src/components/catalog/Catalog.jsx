@@ -37,12 +37,16 @@ export default function Catalog() {
     };
 
     useEffect(() => {
+        const abortController = new AbortController();
         const getData = async () => {
             const data = await getAll();
             setPets(data);
             setLoading(false);
         };
         getData();
+        return () => {
+            abortController.abort();
+        };
     }, []);
 
     if (loading) {

@@ -6,6 +6,7 @@ export default function Home() {
     const [photos, setPhotos] = useState([]);
 
     useEffect(() => {
+        const abortController = new AbortController();
         const getPhotos = async () => {
             const data = await getHomePhotos();
             console.log(data);
@@ -13,6 +14,9 @@ export default function Home() {
             setPhotos(data);
         };
         getPhotos();
+        return () => {
+            abortController.abort();
+        };
     }, []);
 
     return (
