@@ -3,11 +3,13 @@ import { getOne, sendDisike, sendLike } from "../../services/petServices";
 import { useParams } from "react-router-dom";
 import { getUserData } from "../../utils/localStorageManager";
 import DeleteModal from "../delete-modal/DeleteModal";
+import Spinner from "../spinner/Spinner";
 
 export default function Details() {
     const [pet, setPet] = useState({});
     const [isLiked, setIsLiked] = useState(false);
     const [modal, setShowModal] = useState(false);
+    const [loading, setLoading] = useState(true);
 
     const userId = getUserData()?._id;
     const petId = useParams().petId;
@@ -19,12 +21,18 @@ export default function Details() {
             const isLiked = data.liked.includes(userId);
             setIsLiked(isLiked);
             setPet(data);
+            setLoading(false);
         };
         post();
+
         return () => {
             abortController.abort();
         };
     }, [petId, modal]);
+
+    if (loading) {
+        return <Spinner />;
+    }
 
     const amountLikes = pet.liked?.length;
 

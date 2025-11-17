@@ -44,6 +44,7 @@ export default function Catalog() {
             setLoading(false);
         };
         getData();
+
         return () => {
             abortController.abort();
         };
@@ -71,7 +72,7 @@ export default function Catalog() {
                         className="mt-1 block w-full text-center py-2 text-base border border-green-700 focus:outline-none focus:ring--green-700 focus:border--green-700 sm:text-sm rounded-md"
                     >
                         <option value="">Category:</option>
-                        <option value="specises">Specises</option>
+                        <option value="species">Species</option>
                         <option value="breed">Breed</option>
                         <option value="age">Age</option>
                     </select>

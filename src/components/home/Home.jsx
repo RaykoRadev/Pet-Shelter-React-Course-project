@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
 import { getHomePhotos } from "../../services/petServices";
 import HomePhotos from "../home-photo/HomePhoto";
+import Spinner from "../spinner/Spinner";
 
 export default function Home() {
     const [photos, setPhotos] = useState([]);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         const abortController = new AbortController();
@@ -12,12 +14,18 @@ export default function Home() {
             console.log(data);
 
             setPhotos(data);
+            setLoading(false);
         };
         getPhotos();
+
         return () => {
             abortController.abort();
         };
     }, []);
+
+    if (loading) {
+        return <Spinner />;
+    }
 
     return (
         <div className="max-w-7xl mx-auto py-6 sm:px-6 sm:py-12 md:px-12 md:py-24">
