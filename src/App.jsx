@@ -13,6 +13,7 @@ import DeleteModal from "./components/delete-modal/DeleteModal";
 import AboutUs from "./components/about-us/AboutUs";
 import Navbar from "./components/navbar/Navbar";
 import Catalog from "./components/catalog/Catalog";
+import Profile from "./components/profile/Profile";
 
 function App() {
     return (
@@ -30,6 +31,7 @@ function App() {
                     <Route path="/" element={<Home />} />
                     <Route path="/users/login" element={<Login />} />
                     <Route path="/users/register" element={<Register />} />
+                    <Route path="/users/profile" element={<Profile />} />
                     <Route path="/pets">
                         <Route path="catalog" element={<Catalog />} />
                         <Route path="create" element={<CreateEdit />} />
