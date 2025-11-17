@@ -62,7 +62,7 @@ export default function Catalog() {
         <>
             <div className="p-4 mx-auto max-w-md bg-green-200 rounded-lg shadow-lg">
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                    {/* Color Filter */}
+                    {/* Selecting Category Filter */}
 
                     <select
                         id="category"
@@ -76,8 +76,6 @@ export default function Catalog() {
                         <option value="breed">Breed</option>
                         <option value="age">Age</option>
                     </select>
-
-                    {/* Size Filter */}
 
                     <select
                         id="sorting"
@@ -98,8 +96,6 @@ export default function Catalog() {
                     >
                         Sort
                     </button>
-
-                    {/* //todo find a sort button and the handle to be transfered here from the 'select'*/}
                 </div>
             </div>
 

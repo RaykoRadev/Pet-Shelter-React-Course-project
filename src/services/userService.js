@@ -9,10 +9,11 @@ const endpoints = {
 
 export async function login(email, password) {
     const result = await post(endpoints.login, { email, password });
-
+    console.log(result);
     setUserData({
         _id: result._id,
         email: result.email,
+        username: result.username,
         accessToken: result.accessToken,
     });
     return result;
@@ -24,6 +25,7 @@ export async function register(email, password) {
     setUserData({
         _id: result._id,
         email: result.email,
+        username: result.username,
         accessToken: result.accessToken,
     });
     return result;

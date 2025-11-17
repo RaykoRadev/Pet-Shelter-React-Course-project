@@ -1,12 +1,16 @@
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import "./Navbar.css";
-import { clearUserData } from "../../utils/localStorageManager";
+import { clearUserData, getUserData } from "../../utils/localStorageManager";
 
 export default function Navbar() {
+    const navigate = useNavigate();
     const logoutHandler = () => {
         clearUserData();
-        //todo redirect to the home page
+        navigate("/");
     };
+
+    const username = getUserData()?.username;
+
     return (
         <header className="fixed, top-0 w-full z-50 shadow-lg h-24 hidden md:flex">
             <Link
@@ -94,9 +98,9 @@ export default function Navbar() {
                     </li>
                     <li className="p-3 xl:p-6 text-green-700 hover:text-green-600 text-lg ">
                         <span className="text-black">Welcome </span>
-                        <a href="">
-                            <span>UserName</span>
-                        </a>
+                        <Link to="">
+                            <span>{username ? username : "Guest"}</span>
+                        </Link>
                     </li>
                     <li className="p-3 xl:p-6 ">
                         <Link onClick={logoutHandler}>
