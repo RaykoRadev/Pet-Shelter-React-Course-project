@@ -1,4 +1,3 @@
-import { getUserData } from "../utils/localStorageManager";
 import { del, get, post, put } from "./api";
 
 // export async function getAll() {
@@ -62,8 +61,8 @@ const endpoints = {
     create: "/animals/",
     likes: "/animals/likes/",
     dislike: "/animals/dislikes/",
-    ownedPosts: "/animals?author=userId",
-    likedPosts: "/animals?likes=userId",
+    ownedPosts: "/animals?author=",
+    likedPosts: "/animals?liked=",
 };
 
 export function getAll() {
@@ -107,8 +106,6 @@ export function getLikedPosts(userId) {
 }
 
 export async function getHomePhotos(userId) {
-    // return get(endpoints.likedPosts + userId);
-
     try {
         const res = await fetch(`http://localhost:3000/animals/home-photos`);
         const post = await res.json();
