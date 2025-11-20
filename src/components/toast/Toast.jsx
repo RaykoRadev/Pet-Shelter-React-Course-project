@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-export default function Test({ message = "Token expired!", onClose }) {
+export default function Toast({ message = "Token expired!", onClose }) {
     const [isVisible, setIsVisible] = useState(true);
 
     const duration = 8000;
