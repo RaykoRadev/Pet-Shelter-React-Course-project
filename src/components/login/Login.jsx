@@ -5,17 +5,19 @@ import { useState } from "react";
 
 export default function Login() {
     const [errors, setErrors] = useState({});
+    const [userData, setUserData] = useState({});
     const navigate = useNavigate();
 
     const loginSubmitHandler = async (formData) => {
         const email = formData.get("email");
         const password = formData.get("password");
 
+        setUserData({ email, password });
         const errorData = validateLoginForm({ email, password });
 
         setErrors(errorData);
 
-        if (Object.keys(errorData) > 0) {
+        if (errorData.email || errorData.password) {
             return;
         }
 
@@ -27,10 +29,11 @@ export default function Login() {
 
     const inputStyle = (field) =>
         errors[field]
-            ? "border border-red-600 block w-full rounded-md bg-green-200/50 px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-400 placeholder:text-gray-400  sm:text-sm/6"
+            ? "border border-red-700 block w-full rounded-md bg-green-200/50 px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-400 placeholder:text-gray-400  sm:text-sm/6"
             : "block w-full rounded-md bg-green-200/50 px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-400 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-green-700 sm:text-sm/6";
 
-    const errorText = (field) => errors[field] && <p>{errors[field]}</p>;
+    const errorText = (field) =>
+        errors[field] && <p className="text-red-700">{errors[field]}</p>;
 
     return (
         <div className="flex min-h-full flex-col justify-center px-6 py-1 lg:px-8">
@@ -46,11 +49,7 @@ export default function Login() {
             </div>
 
             <div className="mt-5 sm:mx-auto sm:w-full sm:max-w-sm">
-                <form
-                    className="space-y-6"
-                    action={loginSubmitHandler}
-                    // onSubmit={loginSubmitHandler}
-                >
+                <form className="space-y-6" action={loginSubmitHandler}>
                     <div>
                         <label
                             htmlFor="email"
@@ -66,6 +65,7 @@ export default function Login() {
                                 required
                                 autoComplete="email"
                                 className={inputStyle("email")}
+                                defaultValue={userData.email && userData.email}
                             />
                         </div>
                         {errorText("email")}
@@ -90,6 +90,7 @@ export default function Login() {
                                 className="block w-full rounded-md bg-green-200/50 px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-400 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-green-700 sm:text-sm/6"
                             />
                         </div>
+                        {errorText("password")}
                     </div>
 
                     <div>

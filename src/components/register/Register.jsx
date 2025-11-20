@@ -114,7 +114,6 @@ export default function Register() {
                                 className={inputStyle("password")}
                             />
                         </div>
-
                         {errorText("password")}
                     </div>
 
