@@ -61,7 +61,7 @@ export default function Navbar() {
                             <span>Test</span>
                         </NavLink>
                     </li>
-                    <li className="p-3 xl:p-6">
+                    {/* <li className="p-3 xl:p-6">
                         <NavLink
                             className={({ isActive }) =>
                                 isActive ? "active" : ""
@@ -70,7 +70,7 @@ export default function Navbar() {
                         >
                             <span>Spinner</span>
                         </NavLink>
-                    </li>
+                    </li> */}
                     <li className="p-3 xl:p-6">
                         <NavLink
                             className={({ isActive }) =>

@@ -1,18 +1,36 @@
 import { Link, useNavigate } from "react-router-dom";
 import { login } from "../../services/userService";
+import { validateLoginForm } from "../../utils/formValidators";
+import { useState } from "react";
 
 export default function Login() {
+    const [errors, setErrors] = useState({});
     const navigate = useNavigate();
-    const loginSubmitHandler = async (e) => {
-        e.preventDefault();
-        const formData = new FormData(e.target);
+
+    const loginSubmitHandler = async (formData) => {
         const email = formData.get("email");
         const password = formData.get("password");
 
+        const errorData = validateLoginForm({ email, password });
+
+        setErrors(errorData);
+
+        if (Object.keys(errorData) > 0) {
+            return;
+        }
+
         const user = await login(email, password);
         console.log(user);
+
         navigate("/");
     };
+
+    const inputStyle = (field) =>
+        errors[field]
+            ? "border border-red-600 block w-full rounded-md bg-green-200/50 px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-400 placeholder:text-gray-400  sm:text-sm/6"
+            : "block w-full rounded-md bg-green-200/50 px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-400 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-green-700 sm:text-sm/6";
+
+    const errorText = (field) => errors[field] && <p>{errors[field]}</p>;
 
     return (
         <div className="flex min-h-full flex-col justify-center px-6 py-1 lg:px-8">
@@ -29,9 +47,9 @@ export default function Login() {
 
             <div className="mt-5 sm:mx-auto sm:w-full sm:max-w-sm">
                 <form
-                    method="POST"
                     className="space-y-6"
-                    onSubmit={loginSubmitHandler}
+                    action={loginSubmitHandler}
+                    // onSubmit={loginSubmitHandler}
                 >
                     <div>
                         <label
@@ -47,9 +65,10 @@ export default function Login() {
                                 type="email"
                                 required
                                 autoComplete="email"
-                                className="block w-full rounded-md bg-green-200/50 px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-400 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-green-700 sm:text-sm/6"
+                                className={inputStyle("email")}
                             />
                         </div>
+                        {errorText("email")}
                     </div>
 
                     <div>
@@ -76,7 +95,7 @@ export default function Login() {
                     <div>
                         <button
                             type="submit"
-                            className="flex w-full justify-center rounded-md bg-green-700 px-3 py-1.5 text-sm/6 font-semibold text-white shadow-xs hover:bg-green-600 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                            className="flex w-full justify-center rounded-md bg-green-700 px-3 py-1.5 text-sm/6 font-semibold text-white shadow-xs hover:bg-green-600 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600"
                         >
                             Sign in
                         </button>
@@ -87,7 +106,7 @@ export default function Login() {
                     Not a member?{" "}
                     <Link
                         to="/users/register"
-                        className="font-semibold text-green-700 hover:text-indigo-500"
+                        className="font-semibold text-green-700 hover:text-green-600"
                     >
                         Register
                     </Link>

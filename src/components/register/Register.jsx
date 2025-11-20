@@ -1,6 +1,41 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { register } from "../../services/userService";
+import { useEffect, useState } from "react";
+import { validateRegisterForm } from "../../utils/formValidators";
 
 export default function Register() {
+    const [errors, setErrors] = useState({});
+    const [userData, setUserData] = useState({});
+    const navigate = useNavigate();
+
+    const submitAction = async (formData) => {
+        const data = Object.fromEntries(formData);
+        setUserData(data);
+        const errorData = validateRegisterForm(data);
+
+        setErrors(errorData);
+
+        if (
+            errorData.email ||
+            errorData.username ||
+            errorData.password ||
+            errorData.rePassword
+        ) {
+            return;
+        }
+
+        const user = await register(userData);
+        navigate("/");
+    };
+
+    const inputStyle = (field) =>
+        errors[field]
+            ? "border-2 border-red-700 block w-full rounded-md bg-green-200/50 px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-400 placeholder:text-gray-400  sm:text-sm/6"
+            : "block w-full rounded-md bg-green-200/50 px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-400 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-green-700 sm:text-sm/6";
+
+    const errorText = (field) =>
+        errors[field] && <p className="text-red-700">{errors[field]}</p>;
+
     return (
         <div className="flex min-h-full flex-col justify-center px-6 py-1 lg:px-8">
             <div className="sm:mx-auto sm:w-full sm:max-w-sm">
@@ -15,7 +50,7 @@ export default function Register() {
             </div>
 
             <div className="mt-5 sm:mx-auto sm:w-full sm:max-w-sm">
-                <form action="#" method="POST" className="space-y-6">
+                <form action={submitAction} className="space-y-6">
                     <div>
                         <label
                             htmlFor="email"
@@ -30,9 +65,11 @@ export default function Register() {
                                 type="email"
                                 required
                                 autoComplete="email"
-                                className="block w-full rounded-md bg-green-200/50 px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-400 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-green-700 sm:text-sm/6"
+                                className={inputStyle("email")}
+                                defaultValue={userData.email && userData.email}
                             />
                         </div>
+                        {errorText("email")}
                     </div>
 
                     <div>
@@ -49,9 +86,13 @@ export default function Register() {
                                 type="text"
                                 required
                                 autoComplete="username"
-                                className="block w-full rounded-md bg-green-200/50 px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-400 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-green-700 sm:text-sm/6"
+                                className={inputStyle("username")}
+                                defaultValue={
+                                    userData.username && userData.username
+                                }
                             />
                         </div>
+                        {errorText("username")}
                     </div>
 
                     <div>
@@ -70,9 +111,11 @@ export default function Register() {
                                 type="password"
                                 required
                                 autoComplete="current-password"
-                                className="block w-full rounded-md bg-green-200/50 px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-400 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-green-700 sm:text-sm/6"
+                                className={inputStyle("password")}
                             />
                         </div>
+
+                        {errorText("password")}
                     </div>
 
                     <div>
@@ -91,15 +134,16 @@ export default function Register() {
                                 type="password"
                                 required
                                 autoComplete="current-password"
-                                className="block w-full rounded-md bg-green-200/50 px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-400 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-green-700 sm:text-sm/6"
+                                className={inputStyle("rePassword")}
                             />
                         </div>
+                        {errorText("rePassword")}
                     </div>
 
                     <div>
                         <button
                             type="submit"
-                            className="flex w-full justify-center rounded-md bg-green-700 px-3 py-1.5 text-sm/6 font-semibold text-white shadow-xs hover:bg-green-600 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                            className="flex w-full justify-center rounded-md bg-green-700 px-3 py-1.5 text-sm/6 font-semibold text-white shadow-xs hover:bg-green-600 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600"
                         >
                             Sign in
                         </button>
@@ -110,7 +154,7 @@ export default function Register() {
                     Not a member?{" "}
                     <Link
                         to="/users/login"
-                        className="font-semibold text-green-700 hover:text-indigo-500"
+                        className="font-semibold text-green-700 hover:text-green-600"
                     >
                         Login
                     </Link>

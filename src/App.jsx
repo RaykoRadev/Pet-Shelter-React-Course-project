@@ -40,7 +40,7 @@ function App() {
                             element={<Details />}
                         ></Route>
                         <Route path="test" element={<Test />} />
-                        <Route path="spinner" element={<Spinner />} />
+                        {/* <Route path="spinner" element={<Spinner />} /> */}
                     </Route>
                     <Route path="/about-us" element={<AboutUs />} />
                     <Route path="*" element={<NotFound />} />
