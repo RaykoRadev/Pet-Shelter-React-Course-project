@@ -3,10 +3,9 @@ import { useEffect, useState } from "react";
 export default function Toast({ message = "Token expired!", onClose }) {
     const [isVisible, setIsVisible] = useState(true);
 
-    const duration = 8000;
+    const duration = 5000;
 
     useEffect(() => {
-        const startTime = Date.now();
         const timer = setTimeout(() => {
             handleClose();
         }, duration);

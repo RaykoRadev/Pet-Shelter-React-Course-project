@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { FaAngleLeft, FaAngleRight } from "react-icons/fa";
 
-export default function Test({ totalPages = 6, initialPage = 1 }) {
+export default function Pagination({ totalPages = 6, initialPage = 1 }) {
     const [currentPage, setCurrentPage] = useState(initialPage);
     const [pages, setPages] = useState([]);
     const [isAnimating, setIsAnimating] = useState(false);

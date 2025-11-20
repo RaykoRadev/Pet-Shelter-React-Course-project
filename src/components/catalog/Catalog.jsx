@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { getAll } from "../../services/petServices";
 import CatalogItem from "../catalog-item/CatalogItem";
 import Spinner from "../spinner/Spinner";
+import Pagination from "../pagination/Pagination";
 
 export default function Catalog() {
     const [pets, setPets] = useState([]);
@@ -109,6 +110,7 @@ export default function Catalog() {
                     ))}
                 </div>
             </div>
+            <Pagination />
         </>
     );
 }
