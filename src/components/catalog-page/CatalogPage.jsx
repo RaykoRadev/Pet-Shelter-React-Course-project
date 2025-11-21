@@ -1,18 +1,22 @@
 import { useEffect, useState } from "react";
-import { getAll } from "../../services/petServices";
-import CatalogItem from "./catalog-item/CatalogItem";
-import Spinner from "../spinner/Spinner";
 import Pagination from "../pagination/Pagination";
+import Catalog from "./catalog/Catalog";
+import Spinner from "../spinner/Spinner";
+import { getAll } from "../../services/petServices";
 
-export default function Catalog() {
-    const [pets, setPets] = useState([]);
+export default function CatalogPage() {
+    const [posts, setPets] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [page, setPage] = useState(1);
+    const [total, setTotal] = useState(0);
+    const [limit, setLimit] = useState(4);
     const [selectedFilters, setSelectedFilters] = useState({
         category: "",
         sorting: "",
     });
 
     //showing the selected filter
+
     const handleFilterChange = (e) => {
         const { name, value } = e.target;
         setSelectedFilters((prev) => ({ ...prev, [name]: value }));
@@ -27,7 +31,7 @@ export default function Catalog() {
             sort = -1;
         }
 
-        const sorted = pets.slice().sort((a, b) => {
+        const sorted = posts.slice().sort((a, b) => {
             if (category === "age") {
                 return (a[category] - b[category]) * sort;
             }
@@ -37,28 +41,30 @@ export default function Catalog() {
         setPets(sorted);
     };
 
+    const abortController = new AbortController();
+
     useEffect(() => {
-        const abortController = new AbortController();
-        const getData = async () => {
-            const data = await getAll();
+        (async () => {
+            const { data, pagination } = await getAll(page, limit);
             setPets(data);
+            setTotal(pagination.totalPages);
+            setPage(pagination.page);
+            setLimit(pagination.limit);
             setLoading(false);
-        };
-        getData();
+        })();
 
         return () => {
             abortController.abort();
         };
-    }, []);
+    }, [page]);
 
     if (loading) {
         return <Spinner />;
     }
 
-    if (pets.length === 0) {
+    if (posts.length === 0) {
         return <h2>There is no any pets with no home!</h2>;
     }
-
     return (
         <>
             <div className="p-4 mx-auto max-w-md bg-green-200 rounded-lg shadow-lg">
@@ -99,18 +105,12 @@ export default function Catalog() {
                     </button>
                 </div>
             </div>
-
-            <div className="py-4 mt-4 mx-auto lg:max-w-6xl md:max-w-4xl max-w-xl">
-                <h2 className="text-2xl sm:text-3xl font-bold text-slate-800 text-center mb-10">
-                    All our lovely friends
-                </h2>
-                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 sm:gap-6 gap-4">
-                    {pets.map((pet) => (
-                        <CatalogItem key={pet._id} {...pet} />
-                    ))}
-                </div>
-            </div>
-            <Pagination />
+            <Catalog pets={posts} />
+            <Pagination
+                totalPages={total}
+                curentPage={page}
+                onChange={(newPage) => setPage(newPage)}
+            />
         </>
     );
 }

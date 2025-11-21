@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
 import { FaAngleLeft, FaAngleRight } from "react-icons/fa";
 
-export default function Pagination({ totalPages = 6, initialPage = 1 }) {
-    const [currentPage, setCurrentPage] = useState(initialPage);
+export default function Pagination({ totalPages, curentPage, onChange }) {
+    const [currentPage, setCurrentPage] = useState(curentPage);
     const [pages, setPages] = useState([]);
     const [isAnimating, setIsAnimating] = useState(false);
 
@@ -43,6 +43,7 @@ export default function Pagination({ totalPages = 6, initialPage = 1 }) {
 
         setIsAnimating(true);
         setCurrentPage(page);
+        onChange(page);
 
         setTimeout(() => {
             setIsAnimating(false);
@@ -103,18 +104,6 @@ export default function Pagination({ totalPages = 6, initialPage = 1 }) {
                     <FaAngleRight className="h-5 w-5 text-green-600" />
                 </button>
             </div>
-
-            {/* <div
-                role="alert"
-                aria-live="polite"
-                className={`fixed bottom-4 right-4 transform rounded-lg bg-blue-600 px-4 py-2 text-white shadow-lg transition-all duration-300 ${
-                    currentPage === totalPages && currentPage + 1
-                        ? "translate-y-0 opacity-100"
-                        : "translate-y-10 opacity-0"
-                }`}
-            >
-                You've reached the last page
-            </div> */}
         </nav>
     );
 }

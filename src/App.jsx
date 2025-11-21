@@ -9,8 +9,8 @@ import CreateEdit from "./components/create-edit/CreateEdit";
 import Details from "./components/details/Details";
 import AboutUs from "./components/about-us/AboutUs";
 import Navbar from "./components/navbar/Navbar";
-import Catalog from "./components/catalog/Catalog";
 import Profile from "./components/profile/Profile";
+import CatalogPage from "./components/catalog-page/CatalogPage";
 
 function App() {
     return (
@@ -30,7 +30,7 @@ function App() {
                     <Route path="/users/register" element={<Register />} />
                     <Route path="/users/profile" element={<Profile />} />
                     <Route path="/pets">
-                        <Route path="catalog" element={<Catalog />} />
+                        <Route path="catalog" element={<CatalogPage />} />
                         <Route path="create" element={<CreateEdit />} />
                         <Route
                             path="details/:petId"
