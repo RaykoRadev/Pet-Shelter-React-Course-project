@@ -1,59 +1,5 @@
 import { del, get, post, put } from "./api";
 
-// export async function getAll() {
-//     try {
-//         const res = await fetch("http://localhost:3000/animals");
-//         const posts = await res.json();
-//         return posts;
-//     } catch (err) {
-//         alert(err.message);
-//     }
-// }
-
-// export async function getOne(postId, userId) {
-//     try {
-//         const res = await fetch(`http://localhost:3000/animals/${postId}`);
-//         const post = await res.json();
-//         return post;
-//     } catch (err) {
-//         alert(err.message);
-//     }
-// }
-
-// export async function editOne(data, postId) {
-//     try {
-//         const res = await fetch(`http://localhost:3000/animals/${postId}`,{
-//             method: 'PUT',
-//             headers: {
-//                 "X-Authorization": getUserData(),
-//                 "Content-Type" : "application/json"
-//             },
-//             body:JSON.stringify(data)
-//         });
-//         const post = await res.json();
-//         return post;
-//     } catch (err) {
-//         alert(err.message);
-//     }
-// }
-
-// export async function createOne(data) {
-//     try {
-//         const res = await fetch(`http://localhost:3000/animals`,{
-//             method: 'POST',
-//             headers: {
-//                 "X-Authorization": getUserData(),
-//                 "Content-Type" : "application/json"
-//             },
-//             body:JSON.stringify(data)
-//         });
-//         const post = await res.json();
-//         return post;
-//     } catch (err) {
-//         alert(err.message);
-//     }
-// }
-
 const endpoints = {
     // getAll: "/animals?sortBy=createdAt%20desc",
     getAll: "/animals",
@@ -65,9 +11,16 @@ const endpoints = {
     likedPosts: "/animals?liked=",
 };
 
-export function getAll() {
-    //* filter contained liked or author to get owned or liked post! empry filter get All posts
-    return get(endpoints.getAll);
+export async function getAll(page = 1, limit = 10) {
+    const res = await fetch(
+        `http://localhost:3000/animals?page=${page}&limit=${limit}`
+    );
+
+    if (!res.ok) {
+        throw new Error("Failed to fetch animals");
+    }
+
+    return res.json();
 }
 
 //* testet and works no using userId for now
