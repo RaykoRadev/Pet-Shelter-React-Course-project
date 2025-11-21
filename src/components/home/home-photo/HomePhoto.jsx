@@ -1,6 +1,6 @@
 import { useState } from "react";
 import "./HomePhotos.css";
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 
 export default function HomePhotos({ photos }) {
     const [selectedIndex, setSelectedIndex] = useState(0);

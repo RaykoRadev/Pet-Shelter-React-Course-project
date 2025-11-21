@@ -1,15 +1,12 @@
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes } from "react-router";
 import Footer from "./components/footer/Footer";
 import Home from "./components/home/Home";
 import Login from "./components/login/Login";
 import Test from "./components/Test";
-import Test1 from "./components/Test1";
 import NotFound from "./components/not-found/NotFound";
 import Register from "./components/register/Register";
 import CreateEdit from "./components/create-edit/CreateEdit";
 import Details from "./components/details/Details";
-import Spinner from "./components/spinner/Spinner";
-import DeleteModal from "./components/delete-modal/DeleteModal";
 import AboutUs from "./components/about-us/AboutUs";
 import Navbar from "./components/navbar/Navbar";
 import Catalog from "./components/catalog/Catalog";
@@ -40,7 +37,6 @@ function App() {
                             element={<Details />}
                         ></Route>
                         <Route path="test" element={<Test />} />
-                        {/* <Route path="spinner" element={<Spinner />} /> */}
                     </Route>
                     <Route path="/about-us" element={<AboutUs />} />
                     <Route path="*" element={<NotFound />} />

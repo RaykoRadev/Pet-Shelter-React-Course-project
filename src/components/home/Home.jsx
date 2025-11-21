@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { getHomePhotos } from "../../services/petServices";
-import HomePhotos from "../home-photo/HomePhoto";
+import HomePhotos from "./home-photo/HomePhoto";
 import Spinner from "../spinner/Spinner";
 
 export default function Home() {

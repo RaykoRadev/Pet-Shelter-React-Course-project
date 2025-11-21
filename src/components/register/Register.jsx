@@ -1,4 +1,4 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router";
 import { register } from "../../services/userService";
 import { useEffect, useState } from "react";
 import { validateRegisterForm } from "../../utils/formValidators";

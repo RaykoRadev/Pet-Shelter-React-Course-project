@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router";
 import { deleteOne } from "../../services/petServices";
 
 export default function DeleteModal({ postId, onClose }) {

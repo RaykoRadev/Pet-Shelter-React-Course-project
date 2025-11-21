@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router";
 import { createOne } from "../../services/petServices";
 import uploadPhoto from "../../services/uploadePhoto";
 import { useState } from "react";

@@ -1,4 +1,4 @@
-import { Link, NavLink, useNavigate } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router";
 import "./Navbar.css";
 import { clearUserData, getUserData } from "../../utils/localStorageManager";
 
