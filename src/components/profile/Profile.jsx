@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { getUserData } from "../../utils/localStorageManager";
 import { getLikedPosts, getOwnedPosts } from "../../services/petServices";
-import ProfileSinglePost from "../profile-single-post/ProfileSinglePost";
+import ProfileSinglePost from "./profile-single-post/ProfileSinglePost";
 
 export default function Profile() {
     const [likedPosts, setLikedPosts] = useState([]);
@@ -11,11 +11,13 @@ export default function Profile() {
 
     useEffect(() => {
         (async () => {
-            const liked = await getLikedPosts(_id);
-            console.log(liked);
+            //? the result of the request is {data, pagination}
 
+            const liked = (await getLikedPosts(_id)).data;
+            // console.log(liked);
             setLikedPosts(liked);
-            const owned = await getOwnedPosts(_id);
+
+            const owned = (await getOwnedPosts(_id)).data;
             setOwnedPosts(owned);
         })();
     }, []);
