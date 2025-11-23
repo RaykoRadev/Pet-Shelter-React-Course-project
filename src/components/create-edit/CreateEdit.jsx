@@ -2,9 +2,23 @@ import { useNavigate } from "react-router";
 import { createOne } from "../../services/petServices";
 import uploadPhoto from "../../services/uploadePhoto";
 import { useState } from "react";
+import { useForm } from "react-hook-form";
+
+const initVal = {
+    name: "",
+    species: "",
+    breed: "",
+    age: "",
+    imageUrl: "",
+    description: "",
+};
 
 export default function CreateEdit() {
+    const { register, handleSubmit, formState, setValue } = useForm({
+        defaultValues: initVal,
+    });
     const [imgLink, setImgLink] = useState(null);
+
     const navigate = useNavigate();
 
     //upload photo to external API
@@ -14,15 +28,26 @@ export default function CreateEdit() {
 
         const imgObj = await uploadPhoto(file);
 
+        setValue("imageUrl", imgObj?.data.url);
         setImgLink(imgObj?.data.url);
     }
 
-    const submitFormHandler = (e) => {
-        e.preventDefault();
-        const formData = new FormData(e.target);
+    //errors visualization
+    const inputStyle = (field) =>
+        formState.errors[field]
+            ? "border-2 border-red-700 block w-full rounded-md bg-green-200/50 px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-400 placeholder:text-gray-400  sm:text-sm/6"
+            : "block w-full rounded-md bg-green-200/50 px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-400 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-green-700 sm:text-sm/6";
+
+    const errorText = (field) =>
+        formState.errors[field] && (
+            <p className="text-red-700">{formState.errors[field].message}</p>
+        );
+
+    const submitFormHandler = (formData) => {
+        console.log(formData);
 
         (async () => {
-            const data = await createOne(Object.fromEntries(formData));
+            const data = await createOne(formData);
             navigate("/pets/catalog");
         })();
     };
@@ -42,27 +67,34 @@ export default function CreateEdit() {
 
             <div className="mt-6 sm:mx-auto sm:w-full sm:max-w-sm">
                 <form
-                    method="POST"
                     className="space-y-6"
-                    onSubmit={submitFormHandler}
+                    onSubmit={handleSubmit(submitFormHandler)}
                 >
                     <div>
                         <label
-                            htmlFor="email"
+                            htmlFor="name"
                             className="block text-sm/6 font-medium text-gray-900"
                         >
                             Name
                         </label>
                         <div className="mt-2">
                             <input
+                                {...register("name", {
+                                    required: "Name is required!",
+                                    minLength: {
+                                        value: 3,
+                                        message:
+                                            "Name has to be at least 3 characters!",
+                                    },
+                                })}
                                 id="name"
-                                name="name"
                                 type="text"
-                                required
+                                // required
                                 autoComplete="name"
-                                className="block w-full rounded-md bg-green-200/50 px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-400 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-green-700 sm:text-sm/6"
+                                className={inputStyle("name")}
                             />
                         </div>
+                        {errorText("name")}
                     </div>
 
                     <div>
@@ -74,14 +106,22 @@ export default function CreateEdit() {
                         </label>
                         <div className="mt-2">
                             <input
+                                {...register("species", {
+                                    required: "Spieces is required!",
+                                    minLength: {
+                                        value: 3,
+                                        message:
+                                            "Spieces has to be at least 3 characters!",
+                                    },
+                                })}
                                 id="species"
-                                name="species"
                                 type="text"
-                                required
+                                // required
                                 autoComplete="species"
-                                className="block w-full rounded-md bg-green-200/50 px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-400 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-green-700 sm:text-sm/6"
+                                className={inputStyle("species")}
                             />
                         </div>
+                        {errorText("species")}
                     </div>
 
                     <div>
@@ -93,14 +133,22 @@ export default function CreateEdit() {
                         </label>
                         <div className="mt-2">
                             <input
+                                {...register("breed", {
+                                    required: "Breed is required!",
+                                    minLength: {
+                                        value: 3,
+                                        message:
+                                            "Breed has to be at least 3 characters!",
+                                    },
+                                })}
                                 id="breed"
-                                name="breed"
                                 type="text"
-                                required
+                                // required
                                 autoComplete="breed"
-                                className="block w-full rounded-md bg-green-200/50 px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-400 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-green-700 sm:text-sm/6"
+                                className={inputStyle("breed")}
                             />
                         </div>
+                        {errorText("breed")}
                     </div>
 
                     <div>
@@ -114,14 +162,22 @@ export default function CreateEdit() {
                         </div>
                         <div className="mt-2">
                             <input
+                                {...register("age", {
+                                    required: "Age is required!",
+                                    min: {
+                                        value: 0,
+                                        message:
+                                            "Age has to be positive digit!",
+                                    },
+                                })}
                                 id="age"
-                                name="age"
                                 type="number"
-                                required
+                                // required
                                 autoComplete="age"
-                                className="block w-full rounded-md bg-green-200/50 px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-400 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-green-700 sm:text-sm/6 number-color"
+                                className={inputStyle("age")}
                             />
                         </div>
+                        {errorText("age")}
                     </div>
 
                     {/* showing the fields according uploadet photo */}
@@ -138,11 +194,12 @@ export default function CreateEdit() {
                             <div className="mt-2">
                                 <input
                                     id="imageUrl"
-                                    name="imageUrl"
+                                    {...register("imageUrl", {
+                                        required: "Image url is required!",
+                                    })}
                                     type="text"
-                                    value={imgLink}
                                     autoComplete="imageUrl"
-                                    className="block w-full rounded-md bg-green-200/50 px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-400 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-green-700 sm:text-sm/6"
+                                    className={inputStyle("imageUrl")}
                                 />
                             </div>
                         </div>
@@ -153,7 +210,12 @@ export default function CreateEdit() {
                             <div className="flex items-center justify-between">
                                 <label
                                     htmlFor="uploadFile1"
-                                    className="bg-green-200 text-gray-900 font-semibold text-base rounded w-100 h-30 flex flex-col items-center justify-center cursor-pointer border-2 border-gray-400 border-dashed mt-2"
+                                    className={
+                                        (formState.errors.imageUrl
+                                            ? "border-red-700 "
+                                            : "border-gray-400") +
+                                        " bg-green-200 text-gray-900 font-semibold text-base rounded w-100 h-30 flex flex-col items-center justify-center cursor-pointer border-2  border-dashed mt-2"
+                                    }
                                 >
                                     <svg
                                         xmlns="http://www.w3.org/2000/svg"
@@ -182,6 +244,7 @@ export default function CreateEdit() {
                                     </p>
                                 </label>
                             </div>
+                            {errorText("imageUrl")}
                         </div>
                     )}
 
@@ -193,12 +256,20 @@ export default function CreateEdit() {
                         </div>
                         <div className="mt-2">
                             <textarea
+                                {...register("description", {
+                                    required: "Description is required!",
+                                    minLength: {
+                                        value: 10,
+                                        message:
+                                            "Description has to be at least 10 characters!",
+                                    },
+                                })}
                                 rows={4}
-                                name="description"
-                                className="block w-full rounded-md bg-green-200/50 px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-400 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-green-700 sm:text-sm/6"
-                                defaultValue={""}
+                                // required
+                                className={inputStyle("description")}
                             />
                         </div>
+                        {errorText("description")}
                     </div>
 
                     <div>
