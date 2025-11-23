@@ -1,6 +1,6 @@
 import { Link, useNavigate } from "react-router";
 import { register } from "../../services/userService";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { validateRegisterForm } from "../../utils/formValidators";
 
 export default function Register() {
@@ -10,10 +10,10 @@ export default function Register() {
 
     const submitAction = async (formData) => {
         const data = Object.fromEntries(formData);
-        setUserData(data);
         const errorData = validateRegisterForm(data);
 
         setErrors(errorData);
+        await setUserData(data);
 
         if (
             errorData.email ||
@@ -24,7 +24,7 @@ export default function Register() {
             return;
         }
 
-        const user = await register(userData);
+        const user = await register(data);
         navigate("/");
     };
 
