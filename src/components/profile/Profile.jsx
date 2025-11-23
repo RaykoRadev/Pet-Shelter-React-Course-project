@@ -7,6 +7,8 @@ export default function Profile() {
     const [likedPosts, setLikedPosts] = useState([]);
     const [ownedPosts, setOwnedPosts] = useState([]);
 
+    //todo if it is clicked by not loget user to redirect to login page
+
     const { username, email, _id } = getUserData();
 
     useEffect(() => {

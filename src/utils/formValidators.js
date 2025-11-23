@@ -65,3 +65,51 @@ export function validateRegisterForm({
 
     return errorsObj;
 }
+
+export function validatecreateForm({ name, species, breed, age, description }) {
+    const errorsObj = {};
+
+    if (name.length < 3) {
+        errorsObj.name = "Name has to be at least 3 characters!";
+    }
+
+    if (!name) {
+        errorsObj.name = "Name is required!";
+    }
+
+    if (species.length < 3) {
+        errorsObj.species = "Species has to be at least 3 characters!";
+    }
+
+    if (!species) {
+        errorsObj.species = "Species is required!";
+    }
+
+    if (breed.length < 3) {
+        errorsObj.breed = "Breed has to be at least 3 characters!";
+    }
+
+    if (!breed) {
+        errorsObj.breed = "Breed is required!";
+    }
+
+    if (age < 0) {
+        errorsObj.age = "Age has to be positive digit!";
+    }
+
+    if (!age) {
+        errorsObj.age = "Age is required!";
+    }
+
+    if (description.length < 10) {
+        errorsObj.description = "Description has to be at least 10 characters!";
+    }
+
+    if (!description) {
+        errorsObj.description = "Description is required!";
+    }
+
+    //todo validation for image url
+
+    return errorsObj;
+}
