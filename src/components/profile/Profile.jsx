@@ -59,7 +59,7 @@ export default function Profile() {
                             {/* left side */}
                             <div className="max-lg:-order-1 bg-green-100 sm:px-8 px-4 py-6">
                                 <h1 className="text-center text-xl font-bold text-green-700 mb-6">
-                                    Liked Posts
+                                    Liked Posts:
                                 </h1>
                                 <div className="relative">
                                     <div className="md:overflow-auto">
@@ -70,13 +70,18 @@ export default function Profile() {
                                             />
                                         ))}
                                     </div>
+                                    {likedPosts.length === 0 && (
+                                        <h5 className="text-center text-m font-bold text-green-700 mb-6">
+                                            There is no posts.
+                                        </h5>
+                                    )}
                                 </div>
                             </div>
 
                             {/* right side */}
                             <div className="max-lg:-order-1 bg-green-100 sm:px-8 px-4 py-6">
                                 <h1 className="text-center text-xl font-bold text-green-700 mb-6">
-                                    Owned Posts
+                                    Owned Posts:
                                 </h1>
                                 <div className="relative">
                                     <div className="md:overflow-auto">
@@ -87,6 +92,11 @@ export default function Profile() {
                                             />
                                         ))}
                                     </div>
+                                    {ownedPosts.length === 0 && (
+                                        <h5 className="text-center text-m font-bold text-green-700 mb-6">
+                                            There is no posts.
+                                        </h5>
+                                    )}
                                 </div>
                             </div>
                         </div>
