@@ -1,7 +1,7 @@
-import { useNavigate } from "react-router";
-import { createOne } from "../../services/petServices";
+import { useLocation, useNavigate, useParams } from "react-router";
+import { createOne, editOne, getOne } from "../../services/petServices";
 import uploadPhoto from "../../services/uploadePhoto";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import Inputfield from "./fields/Inputfield";
 import ImageUpload from "./fields/ImageUpload";
@@ -16,20 +16,50 @@ const initVal = {
     description: "",
 };
 
+let petId = "";
+
 export default function CreateEdit() {
-    const { register, handleSubmit, formState, setValue } = useForm({
+    const { register, handleSubmit, formState, setValue, reset } = useForm({
         defaultValues: initVal,
     });
     const [imgLink, setImgLink] = useState(null);
+    const [isEdit, setIsEdit] = useState(false);
     const navigate = useNavigate();
+    const { pathname } = useLocation();
+
+    if (pathname.includes("edit")) {
+        petId = useParams().petId;
+
+        useEffect(() => {
+            (async () => {
+                await setIsEdit(true);
+                const getPet = await getOne(petId);
+                reset({
+                    name: getPet.name,
+                    species: getPet.species,
+                    breed: getPet.breed,
+                    age: getPet.age,
+                    imageUrl: getPet.imageUrl,
+                    description: getPet.description,
+                });
+            })();
+        }, [petId]);
+    }
 
     const submitFormHandler = (formData) => {
         console.log(formData);
 
-        (async () => {
-            const data = await createOne(formData);
-            navigate("/pets/catalog");
-        })();
+        if (isEdit) {
+            (async () => {
+                const data = await editOne(petId, formData);
+                navigate(`/pets/details/${petId}`);
+            })();
+        } else {
+            (async () => {
+                const data = await createOne(formData);
+                navigate("/pets/catalog");
+            })();
+        }
     };
 
     return (
@@ -41,7 +71,7 @@ export default function CreateEdit() {
                     className="mx-auto h-30 w-auto"
                 />
                 <h2 className="mt-4 text-center text-2xl/9 font-bold tracking-tight text-gray-900">
-                    Create a post
+                    {isEdit ? "Edit" : "Create"} a post
                 </h2>
             </div>
 
@@ -120,6 +150,7 @@ export default function CreateEdit() {
                         errors={formState.errors}
                         uploadPhoto={uploadPhoto}
                         setValue={setValue}
+                        isEdit={isEdit}
                     />
 
                     <TextareaField
@@ -143,7 +174,7 @@ export default function CreateEdit() {
                             type="submit"
                             className="flex w-full justify-center rounded-md bg-green-700 px-3 py-1.5 text-sm/6 font-semibold text-white shadow-xs hover:bg-green-600 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                         >
-                            Create
+                            {isEdit ? "Edit" : "Create"}
                         </button>
                     </div>
                 </form>

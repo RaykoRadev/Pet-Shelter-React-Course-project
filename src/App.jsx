@@ -36,6 +36,7 @@ function App() {
                             path="details/:petId"
                             element={<Details />}
                         ></Route>
+                        <Route path="edit/:petId" element={<CreateEdit />} />
                         <Route path="test" element={<Test />} />
                     </Route>
                     <Route path="/about-us" element={<AboutUs />} />

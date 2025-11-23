@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { getOne, sendDisike, sendLike } from "../../services/petServices";
-import { useParams } from "react-router";
+import { Link, useParams } from "react-router";
 import { getUserData } from "../../utils/localStorageManager";
 import DeleteModal from "../delete-modal/DeleteModal";
 import Spinner from "../spinner/Spinner";
@@ -118,12 +118,12 @@ export default function Details() {
                         </p>
 
                         <div className="flex gap-4 mt-12 max-w-md">
-                            <button
-                                type="button"
+                            <Link
+                                to={`/pets/edit/${pet._id}`}
                                 className="flex w-full justify-center rounded-md bg-green-700 px-3 py-1.5 text-sm/6 font-semibold text-white shadow-xs hover:bg-green-600 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                             >
-                                Edit
-                            </button>
+                                <button type="button">Edit</button>
+                            </Link>
 
                             <button
                                 onClick={() => setShowModal(true)}

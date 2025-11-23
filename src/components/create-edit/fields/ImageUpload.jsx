@@ -5,6 +5,7 @@ export default function ImageUpload({
     setValue,
     errors,
     uploadPhoto,
+    isEdit,
 }) {
     async function uploadPhotoHendler(e) {
         const file = e.target.files[0];
@@ -20,35 +21,32 @@ export default function ImageUpload({
     //* validation for photo desn't work bcz url field is not rendered in the moment of validation
     //todo if i have time to look for alternative way to make the validation
 
-    if (imgLink) {
-        return (
-            <div>
-                <div className="flex items-center justify-between">
-                    <label
-                        htmlFor="imageUrl"
-                        className="block text-sm/6 font-medium text-gray-900"
-                    >
-                        Photo
-                    </label>
-                </div>
-                <div className="mt-2">
-                    <input
-                        id="imageUrl"
-                        {...register("imageUrl", {
-                            required: "Image url is required!",
-                        })}
-                        type="url"
-                        autoComplete="imageUrl"
-                        className="block w-full rounded-md bg-green-200/50 px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-400 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-green-700 sm:text-sm/6"
-                    />
-                </div>
-            </div>
-        );
-    }
-
     return (
         <>
-            {!imgLink && (
+            {(isEdit || imgLink) && (
+                <div>
+                    <div className="flex items-center justify-between">
+                        <label
+                            htmlFor="imageUrl"
+                            className="block text-sm/6 font-medium text-gray-900"
+                        >
+                            Photo
+                        </label>
+                    </div>
+                    <div className="mt-2">
+                        <input
+                            id="imageUrl"
+                            {...register("imageUrl", {
+                                required: "Image url is required!",
+                            })}
+                            type="url"
+                            autoComplete="imageUrl"
+                            className="block w-full rounded-md bg-green-200/50 px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-400 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-green-700 sm:text-sm/6"
+                        />
+                    </div>
+                </div>
+            )}
+            {(isEdit || !imgLink) && (
                 <div>
                     <div className="flex items-center justify-between">
                         <label
