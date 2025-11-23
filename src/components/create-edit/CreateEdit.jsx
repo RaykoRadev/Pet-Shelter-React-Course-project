@@ -5,6 +5,7 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import Inputfield from "./fields/Inputfield";
 import ImageUpload from "./fields/ImageUpload";
+import TextareaField from "./fields/Textareafield";
 
 const initVal = {
     name: "",
@@ -121,7 +122,7 @@ export default function CreateEdit() {
                         setValue={setValue}
                     />
 
-                    <Inputfield
+                    <TextareaField
                         name={"description"}
                         label={"Description"}
                         type={"text"}
