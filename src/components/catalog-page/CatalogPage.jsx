@@ -4,6 +4,8 @@ import Catalog from "./catalog/Catalog";
 import Spinner from "../spinner/Spinner";
 import { getAll } from "../../services/petServices";
 
+//todo better positioning (to be in the center of the screen)
+
 export default function CatalogPage() {
     const [posts, setPets] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -16,7 +18,6 @@ export default function CatalogPage() {
     });
 
     //showing the selected filter
-
     const handleFilterChange = (e) => {
         const { name, value } = e.target;
         setSelectedFilters((prev) => ({ ...prev, [name]: value }));
