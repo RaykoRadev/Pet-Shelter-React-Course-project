@@ -12,6 +12,9 @@ export default function Register() {
         const data = Object.fromEntries(formData);
         const errorData = validateRegisterForm(data);
 
+        const controller = new AbortController();
+        const signal = controller.signal;
+
         setErrors(errorData);
         await setUserData(data);
 
@@ -24,7 +27,7 @@ export default function Register() {
             return;
         }
 
-        const user = await register(data);
+        const user = await register(data, signal);
         navigate("/");
     };
 

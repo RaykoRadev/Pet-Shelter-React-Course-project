@@ -7,8 +7,8 @@ const endpoints = {
     logout: "/users/logout",
 };
 
-export async function login(email, password) {
-    const result = await post(endpoints.login, { email, password });
+export async function login(email, password, signal) {
+    const result = await post(endpoints.login, signal, { email, password });
     console.log(result);
     setUserData({
         _id: result._id,
@@ -19,8 +19,8 @@ export async function login(email, password) {
     return result;
 }
 
-export async function register({ email, username, password }) {
-    const result = await post(endpoints.register, {
+export async function register({ email, username, password }, signal) {
+    const result = await post(endpoints.register, signal, {
         email,
         username,
         password,
@@ -35,8 +35,8 @@ export async function register({ email, username, password }) {
     return result;
 }
 
-export async function logout() {
-    const promise = get(endpoints.logout);
+export async function logout(signal) {
+    const promise = get(endpoints.logout, signal);
     clearUserData();
 
     await promise;

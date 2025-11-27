@@ -12,6 +12,9 @@ export default function Login() {
         const email = formData.get("email");
         const password = formData.get("password");
 
+        const controller = new AbortController();
+        const signal = controller.signal;
+
         setUserData({ email, password });
         const errorData = validateLoginForm({ email, password });
 
@@ -21,7 +24,7 @@ export default function Login() {
             return;
         }
 
-        const user = await login(email, password);
+        const user = await login(email, password, signal);
         console.log(user);
 
         navigate("/");
