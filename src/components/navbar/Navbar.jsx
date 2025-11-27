@@ -1,15 +1,18 @@
 import { Link, NavLink, useNavigate } from "react-router";
+import { logout } from "../../services/userService";
+import { useContext } from "react";
+import { UserContext } from "../../context/userContext";
 import "./Navbar.css";
-import { clearUserData, getUserData } from "../../utils/localStorageManager";
 
 export default function Navbar() {
     const navigate = useNavigate();
-    const logoutHandler = () => {
-        clearUserData();
+    const { userLogoutHandler, username } = useContext(UserContext);
+
+    const logoutHandler = async () => {
+        await logout();
+        userLogoutHandler();
         navigate("/");
     };
-
-    const username = getUserData()?.username;
 
     return (
         <header className="fixed, top-0 w-full z-50 shadow-lg h-24 hidden md:flex">
@@ -41,16 +44,18 @@ export default function Navbar() {
                             <span>Catalog</span>
                         </NavLink>
                     </li>
-                    <li className="p-3 xl:p-6">
-                        <NavLink
-                            className={({ isActive }) =>
-                                isActive ? "active" : ""
-                            }
-                            to="/pets/create"
-                        >
-                            <span>Create</span>
-                        </NavLink>
-                    </li>
+                    {username && (
+                        <li className="p-3 xl:p-6">
+                            <NavLink
+                                className={({ isActive }) =>
+                                    isActive ? "active" : ""
+                                }
+                                to="/pets/create"
+                            >
+                                <span>Create</span>
+                            </NavLink>
+                        </li>
+                    )}
                     {/* <li className="p-3 xl:p-6">
                         <NavLink
                             className={({ isActive }) =>
@@ -59,16 +64,6 @@ export default function Navbar() {
                             to="/pets/test"
                         >
                             <span>Test</span>
-                        </NavLink>
-                    </li> */}
-                    {/* <li className="p-3 xl:p-6">
-                        <NavLink
-                            className={({ isActive }) =>
-                                isActive ? "active" : ""
-                            }
-                            to="/pets/spinner"
-                        >
-                            <span>Spinner</span>
                         </NavLink>
                     </li> */}
                     <li className="p-3 xl:p-6">
@@ -86,27 +81,33 @@ export default function Navbar() {
 
             <div className="header-links flex font-semibold items-center px-4 lg:px-6 xl:px-8">
                 <ul className="flex items-center  xl:ml-8 ">
-                    <li className="p-3 xl:p-6 ">
-                        <Link to="/users/login">
-                            <span>Login</span>
-                        </Link>
-                    </li>
-                    <li className="p-3 xl:p-6 ">
-                        <Link to="/users/register">
-                            <span>Register</span>
-                        </Link>
-                    </li>
+                    {!username && (
+                        <li className="p-3 xl:p-6 ">
+                            <Link to="/users/login">
+                                <span>Login</span>
+                            </Link>
+                        </li>
+                    )}
+                    {!username && (
+                        <li className="p-3 xl:p-6 ">
+                            <Link to="/users/register">
+                                <span>Register</span>
+                            </Link>
+                        </li>
+                    )}
                     <li className="p-3 xl:p-6 text-green-700 hover:text-green-600 text-lg ">
                         <span className="text-black">Welcome </span>
                         <Link to="/users/profile">
                             <span>{username ? username : "Guest"}</span>
                         </Link>
                     </li>
-                    <li className="p-3 xl:p-6 ">
-                        <Link onClick={logoutHandler}>
-                            <span>Logout</span>
-                        </Link>
-                    </li>
+                    {username && (
+                        <li className="p-3 xl:p-6 ">
+                            <Link onClick={logoutHandler}>
+                                <span>Logout</span>
+                            </Link>
+                        </li>
+                    )}
                 </ul>
             </div>
 

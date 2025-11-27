@@ -7,37 +7,37 @@ const endpoints = {
     logout: "/users/logout",
 };
 
-export async function login(email, password, signal) {
-    const result = await post(endpoints.login, signal, { email, password });
+export async function login(email, password) {
+    const result = await post(endpoints.login, { email, password });
     console.log(result);
-    setUserData({
-        _id: result._id,
-        email: result.email,
-        username: result.username,
-        accessToken: result.accessToken,
-    });
+    // setUserData({
+    //     _id: result._id,
+    //     email: result.email,
+    //     username: result.username,
+    //     accessToken: result.accessToken,
+    // });
     return result;
 }
 
-export async function register({ email, username, password }, signal) {
-    const result = await post(endpoints.register, signal, {
+export async function register({ email, username, password }) {
+    const result = await post(endpoints.register, {
         email,
         username,
         password,
     });
 
-    setUserData({
-        _id: result._id,
-        email: result.email,
-        username: result.username,
-        accessToken: result.accessToken,
-    });
+    // setUserData({
+    //     _id: result._id,
+    //     email: result.email,
+    //     username: result.username,
+    //     accessToken: result.accessToken,
+    // });
     return result;
 }
 
-export async function logout(signal) {
-    const promise = get(endpoints.logout, signal);
-    clearUserData();
+export async function logout() {
+    const promise = get(endpoints.logout);
+    // clearUserData();
 
     await promise;
 }
