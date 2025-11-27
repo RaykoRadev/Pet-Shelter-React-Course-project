@@ -1,19 +1,18 @@
 import { Link, useNavigate } from "react-router";
 import { login } from "../../services/userService";
 import { validateLoginForm } from "../../utils/formValidators";
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { UserContext } from "../../context/userContext";
 
 export default function Login() {
     const [errors, setErrors] = useState({});
     const [userData, setUserData] = useState({});
+    const { userLoginHandler } = useContext(UserContext);
     const navigate = useNavigate();
 
     const loginSubmitHandler = async (formData) => {
         const email = formData.get("email");
         const password = formData.get("password");
-
-        const controller = new AbortController();
-        const signal = controller.signal;
 
         setUserData({ email, password });
         const errorData = validateLoginForm({ email, password });
@@ -24,7 +23,8 @@ export default function Login() {
             return;
         }
 
-        const user = await login(email, password, signal);
+        const user = await login(email, password);
+        userLoginHandler(user);
         console.log(user);
 
         navigate("/");

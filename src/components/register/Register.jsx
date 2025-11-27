@@ -1,19 +1,18 @@
 import { Link, useNavigate } from "react-router";
 import { register } from "../../services/userService";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { validateRegisterForm } from "../../utils/formValidators";
+import { UserContext } from "../../context/userContext";
 
 export default function Register() {
     const [errors, setErrors] = useState({});
     const [userData, setUserData] = useState({});
+    const { userLoginHandler } = useContext(UserContext);
     const navigate = useNavigate();
 
     const submitAction = async (formData) => {
         const data = Object.fromEntries(formData);
         const errorData = validateRegisterForm(data);
-
-        const controller = new AbortController();
-        const signal = controller.signal;
 
         setErrors(errorData);
         await setUserData(data);
@@ -27,7 +26,8 @@ export default function Register() {
             return;
         }
 
-        const user = await register(data, signal);
+        const user = await register(data);
+        userLoginHandler(user);
         navigate("/");
     };
 
