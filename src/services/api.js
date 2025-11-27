@@ -1,11 +1,12 @@
 import { clearUserData, getUserData } from "../utils/localStorageManager";
 
 const host = "http://localhost:3000";
-
-async function reqest(method, url, data) {
+//todo add a signal in the optins
+async function reqest(method, url, signal, data) {
     const options = {
         method,
         headers: {},
+        signal,
     };
 
     if (data !== undefined) {
@@ -46,7 +47,7 @@ async function reqest(method, url, data) {
     }
 }
 
-export const get = (url) => reqest("GET", url);
-export const post = (url, data) => reqest("POST", url, data);
-export const put = (url, data) => reqest("PUT", url, data);
-export const del = (url) => reqest("DELETE", url);
+export const get = (url) => reqest("GET", url, signal);
+export const post = (url, data) => reqest("POST", url, signal, data);
+export const put = (url, data) => reqest("PUT", url, signal, data);
+export const del = (url) => reqest("DELETE", url, signal);

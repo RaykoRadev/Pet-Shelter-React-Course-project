@@ -24,43 +24,45 @@ export async function getAll(page = 1, limit = 10) {
 }
 
 //* testet and works no using userId for now
-export function getOne(postId, userId) {
-    return get(endpoints.getOne + postId, userId);
+export function getOne(postId, userId, signal) {
+    return get(endpoints.getOne + postId, userId, signal);
 }
 
-export function editOne(postId, data) {
-    return put(endpoints.getOne + postId, data);
+export function editOne(postId, data, signal) {
+    return put(endpoints.getOne + postId, signal, data);
 }
 
-export function createOne(data) {
-    return post(endpoints.create, data);
+export function createOne(data, signal) {
+    return post(endpoints.create, signal, data);
 }
 
-export function deleteOne(postId) {
-    return del(endpoints.getOne + postId);
-}
-
-//* testet and works
-export async function sendLike(postId, data) {
-    return post(endpoints.likes + postId, data);
+export function deleteOne(postId, signal) {
+    return del(endpoints.getOne + postId, signal);
 }
 
 //* testet and works
-export async function sendDisike(postId, data) {
-    return post(endpoints.dislike + postId, data);
+export async function sendLike(postId, data, signal) {
+    return post(endpoints.likes + postId, signal, data);
 }
 
-export function getOwnedPosts(userId) {
-    return get(endpoints.ownedPosts + userId);
+//* testet and works
+export async function sendDisike(postId, data, signal) {
+    return post(endpoints.dislike + postId, signal, data);
 }
 
-export function getLikedPosts(userId) {
-    return get(endpoints.likedPosts + userId);
+export function getOwnedPosts(userId, signal) {
+    return get(endpoints.ownedPosts + userId, signal);
 }
 
-export async function getHomePhotos(userId) {
+export function getLikedPosts(userId, signal) {
+    return get(endpoints.likedPosts + userId, signal);
+}
+
+export async function getHomePhotos(signal) {
     try {
-        const res = await fetch(`http://localhost:3000/animals/home-photos`);
+        const res = await fetch(`http://localhost:3000/animals/home-photos`, {
+            signal: controller.signal,
+        });
         const post = await res.json();
         return post;
     } catch (err) {

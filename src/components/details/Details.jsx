@@ -17,7 +17,7 @@ export default function Details() {
     useEffect(() => {
         const abortController = new AbortController();
         const post = async () => {
-            const data = await getOne(petId);
+            const data = await getOne(petId, abortController.signal);
             const isLiked = data.liked.includes(userId);
             setIsLiked(isLiked);
             setPet(data);

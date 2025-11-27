@@ -27,13 +27,14 @@ export default function CreateEdit() {
     const navigate = useNavigate();
     const { pathname } = useLocation();
 
+    //checking whic page to load edit or create
     if (pathname.includes("edit")) {
         petId = useParams().petId;
 
         useEffect(() => {
-            (async () => {
+            const abortController = new AbortController()(async () => {
                 await setIsEdit(true);
-                const getPet = await getOne(petId);
+                const getPet = await getOne(petId, abortController.signal);
                 reset({
                     name: getPet.name,
                     species: getPet.species,
@@ -43,6 +44,9 @@ export default function CreateEdit() {
                     description: getPet.description,
                 });
             })();
+            return () => {
+                abortController.abort();
+            };
         }, [petId]);
     }
 

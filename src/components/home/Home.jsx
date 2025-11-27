@@ -8,9 +8,10 @@ export default function Home() {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
+        //todo to put signal: abortController.signal in the options of the fetch request
         const abortController = new AbortController();
         const getPhotos = async () => {
-            const data = await getHomePhotos();
+            const data = await getHomePhotos(abortController.signal);
             console.log(data);
 
             setPhotos(data);
@@ -29,22 +30,25 @@ export default function Home() {
 
     return (
         <div className="max-w-7xl mx-auto py-6 sm:px-6 sm:py-12 md:px-12 md:py-24">
-            <div className="flex flex-col lg:flex-row">
+            <div className="flex flex-col lg:flex-row gap-2">
                 <div
                     className="w-full lg:w-1/3 py-1 px-5 prose"
                     data-aos="fade-up"
                     data-aos-duration={1000}
                     data-aos-delay={100}
                 >
-                    <h1 className="text-7xl font-semibold text-gray-700 leading-tight">
-                        Lets help them to find therir home
+                    <h1 className="text-6xl font-semibold text-gray-700 leading-tight">
+                        Paws & Furr Shelter
                     </h1>
 
                     <p className="text-2xl text-gray-600 font-light mt-8 leading-relaxed">
-                        Nullam tincidunt felis eget blandit aliquam. Nunc vel
-                        mollis lorem. Phasellus pharetra commodo ultricies.
-                        Mauris scelerisque elit sed arcu consectetur hendrerit
-                        et sit amet ligula.
+                        Welcome to Paws & Furr Shelter — a safe haven for
+                        animals looking for a second chance. Our mission is to
+                        rescue, rehabilitate, and rehome pets in need, giving
+                        them the love and care they deserve. Whether you are
+                        here to adopt or support our work, you are helping
+                        change lives — one wagging tail and gentle purr at a
+                        time.
                     </p>
                 </div>
                 <div className="w-full lg:w-2/3 py-1 px-10 grid relative">

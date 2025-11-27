@@ -42,11 +42,14 @@ export default function CatalogPage() {
         setPets(sorted);
     };
 
-    const abortController = new AbortController();
-
     useEffect(() => {
+        const abortController = new AbortController();
         (async () => {
-            const { data, pagination } = await getAll(page, limit);
+            const { data, pagination } = await getAll(
+                page,
+                limit,
+                abortController.signal
+            );
             setPets(data);
             setTotal(pagination.totalPages);
             setPage(pagination.page);

@@ -51,7 +51,7 @@ export default function Pagination({ totalPages, curentPage, onChange }) {
     };
     return (
         <nav
-            className="flex items-center justify-center p-4"
+            className="mt-17 sm:mt-22 md:mt-38 lg:mt-54 flex items-center justify-center p-4"
             role="navigation"
             aria-label="Pagination Navigation"
         >

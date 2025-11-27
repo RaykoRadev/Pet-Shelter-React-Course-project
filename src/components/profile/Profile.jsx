@@ -12,16 +12,21 @@ export default function Profile() {
     const { username, email, _id } = getUserData();
 
     useEffect(() => {
-        (async () => {
+        const abortController = new AbortController()(async () => {
             //? the result of the request is {data, pagination}
 
-            const liked = (await getLikedPosts(_id)).data;
+            const liked = (await getLikedPosts(_id, abortController.signal))
+                .data;
             // console.log(liked);
             setLikedPosts(liked);
 
-            const owned = (await getOwnedPosts(_id)).data;
+            const owned = (await getOwnedPosts(_id, abortController.signal))
+                .data;
             setOwnedPosts(owned);
         })();
+        return () => {
+            abortController.abort();
+        };
     }, []);
 
     return (
