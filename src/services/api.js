@@ -47,7 +47,7 @@ async function reqest(method, url, signal, data) {
     }
 }
 
-export const get = (url) => reqest("GET", url, signal);
-export const post = (url, data) => reqest("POST", url, signal, data);
-export const put = (url, data) => reqest("PUT", url, signal, data);
-export const del = (url) => reqest("DELETE", url, signal);
+export const get = (url, signal) => reqest("GET", url, signal);
+export const post = (url, signal, data) => reqest("POST", url, signal, data);
+export const put = (url, signal, data) => reqest("PUT", url, signal, data);
+export const del = (url, signal) => reqest("DELETE", url, signal);

@@ -11,9 +11,10 @@ const endpoints = {
     likedPosts: "/animals?liked=",
 };
 
-export async function getAll(page = 1, limit = 10) {
+export async function getAll(page = 1, limit = 10, signal) {
     const res = await fetch(
-        `http://localhost:3000/animals?page=${page}&limit=${limit}`
+        `http://localhost:3000/animals?page=${page}&limit=${limit}`,
+        { signal }
     );
 
     if (!res.ok) {
@@ -61,7 +62,7 @@ export function getLikedPosts(userId, signal) {
 export async function getHomePhotos(signal) {
     try {
         const res = await fetch(`http://localhost:3000/animals/home-photos`, {
-            signal: controller.signal,
+            signal,
         });
         const post = await res.json();
         return post;
