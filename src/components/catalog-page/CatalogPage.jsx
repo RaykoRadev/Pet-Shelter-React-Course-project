@@ -5,8 +5,6 @@ import Spinner from "../spinner/Spinner";
 import { getAll } from "../../services/petServices";
 import useRequest from "../../hooks/useRequest";
 
-//todo better positioning (to be in the center of the screen)
-
 export default function CatalogPage() {
     const [posts, setPosts] = useState([]);
     // const [loading, setLoading] = useState(true);
@@ -18,11 +16,12 @@ export default function CatalogPage() {
         sorting: "",
     });
 
-    const { data: pets, loading } = useRequest(
+    const { resData: pets, loading } = useRequest(
         `http://localhost:3000/animals?page=${page}&limit=${limit}`,
         {}
     );
 
+    //todo pagination in separate hook
     useEffect(() => {
         if (!pets || !pets.data) return;
 
@@ -34,7 +33,7 @@ export default function CatalogPage() {
         setLimit(pagination.limit);
     }, [pets]);
 
-    //showing the selected filter
+    //showing the selected filter for sorting
     const handleFilterChange = (e) => {
         const { name, value } = e.target;
         setSelectedFilters((prev) => ({ ...prev, [name]: value }));
@@ -84,7 +83,11 @@ export default function CatalogPage() {
     }
 
     if (posts.length === 0) {
-        return <h2>There is no any pets with no home!</h2>;
+        return (
+            <h2 className="mt-80 text-center text-3xl font-bold text-green-700 mb-6">
+                There is no any pets with no home!
+            </h2>
+        );
     }
     return (
         <>

@@ -1,33 +1,17 @@
-import { useEffect, useState } from "react";
-import { getUserData } from "../../utils/localStorageManager";
-import { getLikedPosts, getOwnedPosts } from "../../services/petServices";
+import { useContext } from "react";
 import ProfileSinglePost from "./profile-single-post/ProfileSinglePost";
+import { UserContext } from "../../context/userContext";
+import useRequest from "../../hooks/useRequest";
+import { endpoints } from "../../config/constants";
 
 export default function Profile() {
-    const [likedPosts, setLikedPosts] = useState([]);
-    const [ownedPosts, setOwnedPosts] = useState([]);
-
-    //todo if it is clicked by not loget user to redirect to login page
-
-    const { username, email, _id } = getUserData();
-
-    useEffect(() => {
-        const abortController = new AbortController()(async () => {
-            //? the result of the request is {data, pagination}
-
-            const liked = (await getLikedPosts(_id, abortController.signal))
-                .data;
-            // console.log(liked);
-            setLikedPosts(liked);
-
-            const owned = (await getOwnedPosts(_id, abortController.signal))
-                .data;
-            setOwnedPosts(owned);
-        })();
-        return () => {
-            abortController.abort();
-        };
-    }, []);
+    const { username, email, _id } = useContext(UserContext);
+    const { resData: likedPosts } = useRequest(endpoints.likedPosts + _id, {
+        data: [],
+    });
+    const { resData: ownedPosts } = useRequest(endpoints.ownedPosts + _id, {
+        data: [],
+    });
 
     return (
         <div className="bg-green-200 mx-auto from-green-800 to-green-900 min-h-screen flex items-center justify-center p-4">
@@ -45,7 +29,6 @@ export default function Profile() {
                             Profile page
                         </h1>
 
-                        {/* <p className="text-gray-600 mb-6">Software Developer</p> */}
                         <h3 className="text-xl font-semibold text-balck mb-4">
                             Email:
                             <span> {email}</span>
@@ -56,7 +39,6 @@ export default function Profile() {
                         </h3>
                     </div>
                 </div>
-                {/* <div className="items-center flex flex-col md:flex-row"></div> */}
 
                 <div className="bg-green-100 max-lg:pt-4">
                     <div className="max-w-screen-xl max-lg:max-w-xl mx-auto">
@@ -68,14 +50,14 @@ export default function Profile() {
                                 </h1>
                                 <div className="relative">
                                     <div className="md:overflow-auto">
-                                        {likedPosts.map((post) => (
+                                        {likedPosts.data.map((post) => (
                                             <ProfileSinglePost
                                                 key={post._id}
                                                 {...post}
                                             />
                                         ))}
                                     </div>
-                                    {likedPosts.length === 0 && (
+                                    {likedPosts.data.length === 0 && (
                                         <h5 className="text-center text-m font-bold text-green-700 mb-6">
                                             There is no posts.
                                         </h5>
@@ -90,14 +72,14 @@ export default function Profile() {
                                 </h1>
                                 <div className="relative">
                                     <div className="md:overflow-auto">
-                                        {ownedPosts.map((post) => (
+                                        {ownedPosts.data.map((post) => (
                                             <ProfileSinglePost
                                                 key={post._id}
                                                 {...post}
                                             />
                                         ))}
                                     </div>
-                                    {ownedPosts.length === 0 && (
+                                    {ownedPosts.data.length === 0 && (
                                         <h5 className="text-center text-m font-bold text-green-700 mb-6">
                                             There is no posts.
                                         </h5>

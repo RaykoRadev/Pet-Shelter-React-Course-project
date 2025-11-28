@@ -1,8 +1,9 @@
 import { useContext, useEffect, useState } from "react";
 import { UserContext } from "../context/userContext";
+import { clearUserData } from "../utils/localStorageManager";
 
 export default function useRequest(url, initState) {
-    const [data, setData] = useState(initState);
+    const [resData, setData] = useState(initState);
     const [loading, setLoading] = useState(true);
 
     const { accessToken, userLogoutHandler } = useContext(UserContext);
@@ -26,10 +27,8 @@ export default function useRequest(url, initState) {
                 const err = await response.json();
 
                 //todo to check what is the message when token is corupted
-                if (
-                    response.status === 403 &&
-                    err.message == "Invalid access token"
-                ) {
+                if (response.status === 400 && err.message == "jwt expired") {
+                    clearUserData();
                     userLogoutHandler();
                 }
 
@@ -58,5 +57,5 @@ export default function useRequest(url, initState) {
             .catch((err) => alert(err.message));
     }, [url]);
 
-    return { request, data, setData, loading };
+    return { request, resData, setData, loading };
 }

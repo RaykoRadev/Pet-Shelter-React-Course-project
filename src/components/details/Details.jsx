@@ -19,7 +19,7 @@ export default function Details() {
     const userId = _id;
     const petId = useParams().petId;
     const {
-        data: pet,
+        resData: pet,
         loading,
         request,
     } = useRequest(endpoints.getOne + petId, {});

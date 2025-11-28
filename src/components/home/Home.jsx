@@ -6,7 +6,7 @@ import useRequest from "../../hooks/useRequest";
 import { endpoints } from "../../config/constants";
 
 export default function Home() {
-    const { data: photos, loading } = useRequest(endpoints.homePotos, []);
+    const { resData: photos, loading } = useRequest(endpoints.homePotos, []);
 
     if (loading) {
         return <Spinner />;
