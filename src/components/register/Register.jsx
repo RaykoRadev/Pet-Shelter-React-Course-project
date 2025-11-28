@@ -3,11 +3,14 @@ import { register } from "../../services/userService";
 import { useContext, useState } from "react";
 import { validateRegisterForm } from "../../utils/formValidators";
 import { UserContext } from "../../context/userContext";
+import useRequest from "../../hooks/useRequest";
+import { endpoints } from "../../config/constants";
 
 export default function Register() {
     const [errors, setErrors] = useState({});
     const [userData, setUserData] = useState({});
     const { userLoginHandler } = useContext(UserContext);
+    const { request } = useRequest();
     const navigate = useNavigate();
 
     const submitAction = async (formData) => {
@@ -26,7 +29,8 @@ export default function Register() {
             return;
         }
 
-        const user = await register(data);
+        const user = await request(endpoints.register, "POST", data);
+        // const user = await register(data);
         userLoginHandler(user);
         navigate("/");
     };

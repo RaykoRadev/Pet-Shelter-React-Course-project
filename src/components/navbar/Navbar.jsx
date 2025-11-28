@@ -9,11 +9,11 @@ import { endpoints } from "../../config/constants";
 export default function Navbar() {
     const navigate = useNavigate();
     const { userLogoutHandler, username } = useContext(UserContext);
-    const { reqest } = useRequest();
+    const { request } = useRequest();
 
     const logoutHandler = async () => {
         // await logout();
-        await reqest(endpoints.logout);
+        await request(endpoints.logout);
         userLogoutHandler();
         navigate("/");
     };

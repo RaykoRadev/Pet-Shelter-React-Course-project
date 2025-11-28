@@ -9,7 +9,7 @@ import { endpoints } from "../../config/constants";
 export default function Login() {
     const [errors, setErrors] = useState({});
     const [userData, setUserData] = useState({});
-    const { reqest } = useRequest();
+    const { request } = useRequest();
     const { userLoginHandler } = useContext(UserContext);
     const navigate = useNavigate();
 
@@ -25,7 +25,10 @@ export default function Login() {
         if (errorData.email || errorData.password) {
             return;
         }
-        const user = await reqest(endpoints.login, "POST", { email, password });
+        const user = await request(endpoints.login, "POST", {
+            email,
+            password,
+        });
         // const user = await login(email, password);
         userLoginHandler(user);
         console.log(user);
