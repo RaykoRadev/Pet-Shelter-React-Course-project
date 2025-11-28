@@ -15,4 +15,5 @@ export const endpoints = {
     dislike: host + "/animals/dislikes/",
     ownedPosts: host + "/animals?author=",
     likedPosts: host + "/animals?liked=",
+    homePotos: host + "/animals/home-photos",
 };

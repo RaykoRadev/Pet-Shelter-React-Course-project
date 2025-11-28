@@ -3,12 +3,13 @@ import Pagination from "../pagination/Pagination";
 import Catalog from "./catalog/Catalog";
 import Spinner from "../spinner/Spinner";
 import { getAll } from "../../services/petServices";
+import useRequest from "../../hooks/useRequest";
 
 //todo better positioning (to be in the center of the screen)
 
 export default function CatalogPage() {
-    const [posts, setPets] = useState([]);
-    const [loading, setLoading] = useState(true);
+    const [posts, setPosts] = useState([]);
+    // const [loading, setLoading] = useState(true);
     const [page, setPage] = useState(1);
     const [total, setTotal] = useState(0);
     const [limit, setLimit] = useState(4);
@@ -16,6 +17,22 @@ export default function CatalogPage() {
         category: "",
         sorting: "",
     });
+
+    const { data: pets, loading } = useRequest(
+        `http://localhost:3000/animals?page=${page}&limit=${limit}`,
+        {}
+    );
+
+    useEffect(() => {
+        if (!pets || !pets.data) return;
+
+        const { data, pagination } = pets;
+
+        setPosts(data);
+        setTotal(pagination.totalPages);
+        setPage(pagination.page);
+        setLimit(pagination.limit);
+    }, [pets]);
 
     //showing the selected filter
     const handleFilterChange = (e) => {
@@ -39,28 +56,28 @@ export default function CatalogPage() {
             return a[category].localeCompare(b[category]) * sort;
         });
 
-        setPets(sorted);
+        setPosts(sorted);
     };
 
-    useEffect(() => {
-        const abortController = new AbortController();
-        (async () => {
-            const { data, pagination } = await getAll(
-                page,
-                limit,
-                abortController.signal
-            );
-            setPets(data);
-            setTotal(pagination.totalPages);
-            setPage(pagination.page);
-            setLimit(pagination.limit);
-            setLoading(false);
-        })();
+    // useEffect(() => {
+    //     const abortController = new AbortController();
+    //     (async () => {
+    //         const { data, pagination } = await getAll(
+    //             page,
+    //             limit,
+    //             abortController.signal //!
+    //         );
+    //         setPets(data);
+    //         setTotal(pagination.totalPages);
+    //         setPage(pagination.page);
+    //         setLimit(pagination.limit);
+    //         setLoading(false);
+    //     })();
 
-        return () => {
-            abortController.abort();
-        };
-    }, [page]);
+    //     return () => {
+    //         abortController.abort();
+    //     };
+    // }, [page]);
 
     if (loading) {
         return <Spinner />;

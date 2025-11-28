@@ -54,9 +54,9 @@ export default function useRequest(url, initState) {
 
         request(url)
             .then((res) => setData(res))
-            .then(setLoading(false))
+            .then(() => setLoading(false))
             .catch((err) => alert(err.message));
-    }, []);
+    }, [url]);
 
     return { request, data, setData, loading };
 }
