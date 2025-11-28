@@ -60,7 +60,12 @@ export default function CreateEdit() {
 
         if (isEdit) {
             (async () => {
-                const data = await editOne(petId, formData);
+                const data = await request(
+                    endpoints.getOne + petId,
+                    "PUT",
+                    formData
+                );
+                // const data = await editOne(petId, formData);
                 navigate(`/pets/details/${petId}`);
             })();
         } else {
