@@ -6,6 +6,8 @@ import { useForm } from "react-hook-form";
 import Inputfield from "./fields/Inputfield";
 import ImageUpload from "./fields/ImageUpload";
 import TextareaField from "./fields/Textareafield";
+import useRequest from "../../hooks/useRequest";
+import { endpoints } from "../../config/constants";
 
 const initVal = {
     name: "",
@@ -24,6 +26,7 @@ export default function CreateEdit() {
     });
     const [imgLink, setImgLink] = useState(null);
     const [isEdit, setIsEdit] = useState(false);
+    const { request } = useRequest();
     const navigate = useNavigate();
     const { pathname } = useLocation();
 
@@ -31,8 +34,10 @@ export default function CreateEdit() {
     if (pathname.includes("edit")) {
         petId = useParams().petId;
 
+        //todo  to fix abort controller
+        const abortController = new AbortController();
         useEffect(() => {
-            const abortController = new AbortController()(async () => {
+            (async () => {
                 await setIsEdit(true);
                 const getPet = await getOne(petId, abortController.signal);
                 reset({
@@ -60,7 +65,12 @@ export default function CreateEdit() {
             })();
         } else {
             (async () => {
-                const data = await createOne(formData);
+                const data = await request(
+                    endpoints.createOne,
+                    "POST",
+                    formData
+                );
+                // const data = await createOne(formData);
                 navigate("/pets/catalog");
             })();
         }
