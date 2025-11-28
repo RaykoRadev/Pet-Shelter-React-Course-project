@@ -10,7 +10,7 @@ export const endpoints = {
 
     getAll: host + "/animals",
     getOne: host + "/animals/",
-    create: host + "/animals/",
+    createOne: host + "/animals/",
     likes: host + "/animals/likes/",
     dislike: host + "/animals/dislikes/",
     ownedPosts: host + "/animals?author=",
