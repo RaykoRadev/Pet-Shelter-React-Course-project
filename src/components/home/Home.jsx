@@ -2,27 +2,11 @@ import { useEffect, useState } from "react";
 import { getHomePhotos } from "../../services/petServices";
 import HomePhotos from "./home-photo/HomePhoto";
 import Spinner from "../spinner/Spinner";
+import useRequest from "../../hooks/useRequest";
+import { endpoints } from "../../config/constants";
 
 export default function Home() {
-    const [photos, setPhotos] = useState([]);
-    const [loading, setLoading] = useState(true);
-
-    useEffect(() => {
-        //todo to put signal: abortController.signal in the options of the fetch request
-        const abortController = new AbortController();
-        const getPhotos = async () => {
-            const data = await getHomePhotos(abortController.signal);
-            console.log(data);
-
-            setPhotos(data);
-            setLoading(false);
-        };
-        getPhotos();
-
-        return () => {
-            abortController.abort();
-        };
-    }, []);
+    const { data: photos, loading } = useRequest(endpoints.homePotos, []);
 
     if (loading) {
         return <Spinner />;
@@ -52,10 +36,6 @@ export default function Home() {
                     </p>
                 </div>
                 <div className="w-full lg:w-2/3 py-1 px-10 grid relative">
-                    {/* {photos.map((photo) => (
-                        <HomePhotos imageUrl={photo.imageUrl} key={photo._id} />
-                    ))} */}
-
                     {photos && <HomePhotos photos={photos} />}
                 </div>
             </div>
