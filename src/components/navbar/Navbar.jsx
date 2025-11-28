@@ -1,5 +1,5 @@
 import { Link, NavLink, useNavigate } from "react-router";
-import { logout } from "../../services/userService";
+// import { logout } from "../../services/userService";
 import { useContext } from "react";
 import { UserContext } from "../../context/userContext";
 import "./Navbar.css";
