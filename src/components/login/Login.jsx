@@ -1,12 +1,15 @@
 import { Link, useNavigate } from "react-router";
-import { login } from "../../services/userService";
+// import { login } from "../../services/userService";
 import { validateLoginForm } from "../../utils/formValidators";
 import { useContext, useState } from "react";
 import { UserContext } from "../../context/userContext";
+import useRequest from "../../hooks/useRequest";
+import { endpoints } from "../../config/constants";
 
 export default function Login() {
     const [errors, setErrors] = useState({});
     const [userData, setUserData] = useState({});
+    const { reqest } = useRequest();
     const { userLoginHandler } = useContext(UserContext);
     const navigate = useNavigate();
 
@@ -17,13 +20,13 @@ export default function Login() {
         setUserData({ email, password });
         const errorData = validateLoginForm({ email, password });
 
-        setErrors(errorData);
+        // setErrors(errorData);
 
         if (errorData.email || errorData.password) {
             return;
         }
-
-        const user = await login(email, password);
+        const user = await reqest(endpoints.login, "POST", { email, password });
+        // const user = await login(email, password);
         userLoginHandler(user);
         console.log(user);
 
