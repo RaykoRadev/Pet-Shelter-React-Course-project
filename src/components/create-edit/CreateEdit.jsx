@@ -39,7 +39,8 @@ export default function CreateEdit() {
         useEffect(() => {
             (async () => {
                 await setIsEdit(true);
-                const getPet = await getOne(petId, abortController.signal);
+                const getPet = await request(endpoints.getOne + petId);
+                // const getPet = await getOne(petId, abortController.signal);
                 reset({
                     name: getPet.name,
                     species: getPet.species,
