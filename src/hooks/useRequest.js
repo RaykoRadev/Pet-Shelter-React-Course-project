@@ -1,12 +1,13 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { UserContext } from "../context/userContext";
 
 export default function useRequest(url, initState) {
     const [data, setData] = useState(initState);
-    //todo if there is problem with the logout accessisng token to use getUserData()
+    const [loading, setLoading] = useState(true);
+
     const { accessToken, userLogoutHandler } = useContext(UserContext);
 
-    const reqest = async (url, method, data) => {
+    const request = async (url, method, data) => {
         const optins = { method, headers: {} };
 
         if (data !== undefined) {
@@ -36,8 +37,10 @@ export default function useRequest(url, initState) {
             }
 
             if (response.status == 204) {
+                setLoading(false);
                 return response;
             } else {
+                setLoading(false);
                 return response.json();
             }
         } catch (err) {
@@ -46,5 +49,14 @@ export default function useRequest(url, initState) {
         }
     };
 
-    return { reqest, data, setData };
+    useEffect(() => {
+        if (!url) return;
+
+        request(url)
+            .then((res) => setData(res))
+            .then(setLoading(false))
+            .catch((err) => alert(err.message));
+    }, []);
+
+    return { request, data, setData, loading };
 }
