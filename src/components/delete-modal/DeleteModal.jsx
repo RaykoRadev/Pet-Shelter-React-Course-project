@@ -1,10 +1,14 @@
 import { useNavigate } from "react-router";
 import { deleteOne } from "../../services/petServices";
+import useRequest from "../../hooks/useRequest";
+import { endpoints } from "../../config/constants";
 
 export default function DeleteModal({ postId, onClose }) {
+    const { request } = useRequest();
     const navigate = useNavigate();
     const deletePostHandler = async () => {
-        await deleteOne(postId);
+        await request(endpoints.getOne + postId, "DELETE");
+        // await deleteOne(postId);
         navigate("/pets/catalog");
     };
 
