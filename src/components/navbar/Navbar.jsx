@@ -3,13 +3,17 @@ import { logout } from "../../services/userService";
 import { useContext } from "react";
 import { UserContext } from "../../context/userContext";
 import "./Navbar.css";
+import useRequest from "../../hooks/useRequest";
+import { endpoints } from "../../config/constants";
 
 export default function Navbar() {
     const navigate = useNavigate();
     const { userLogoutHandler, username } = useContext(UserContext);
+    const { reqest } = useRequest();
 
     const logoutHandler = async () => {
-        await logout();
+        // await logout();
+        await reqest(endpoints.logout);
         userLogoutHandler();
         navigate("/");
     };
