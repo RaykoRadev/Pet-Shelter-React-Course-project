@@ -1,8 +1,10 @@
 import { useContext, useEffect, useState } from "react";
 import { UserContext } from "../context/userContext";
 import { clearUserData } from "../utils/localStorageManager";
+import { useNavigate } from "react-router";
 
 export default function useRequest(url, initState) {
+    const navigate = useNavigate();
     const [resData, setData] = useState(initState);
     const [loading, setLoading] = useState(true);
 
@@ -27,9 +29,14 @@ export default function useRequest(url, initState) {
                 const err = await response.json();
 
                 //todo to check what is the message when token is corupted
-                if (response.status === 400 && err.message == "jwt expired") {
-                    clearUserData();
+                if (
+                    response.status === 400 &&
+                    (err.message == "jwt expired" ||
+                        err.message == "invalid signature")
+                ) {
+                    // clearUserData();
                     userLogoutHandler();
+                    navigate("/users/login", { replace: true });
                 }
 
                 throw new Error(err.message);
