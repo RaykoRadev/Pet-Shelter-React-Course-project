@@ -1,5 +1,4 @@
 import { useLocation, useNavigate, useParams } from "react-router";
-import { createOne, editOne, getOne } from "../../services/petServices";
 import uploadPhoto from "../../services/uploadePhoto";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
@@ -40,7 +39,6 @@ export default function CreateEdit() {
             (async () => {
                 await setIsEdit(true);
                 const getPet = await request(endpoints.getOne + petId);
-                // const getPet = await getOne(petId, abortController.signal);
                 reset({
                     name: getPet.name,
                     species: getPet.species,
@@ -66,7 +64,6 @@ export default function CreateEdit() {
                     "PUT",
                     formData
                 );
-                // const data = await editOne(petId, formData);
                 navigate(`/pets/details/${petId}`);
             })();
         } else {
@@ -76,7 +73,6 @@ export default function CreateEdit() {
                     "POST",
                     formData
                 );
-                // const data = await createOne(formData);
                 navigate("/pets/catalog");
             })();
         }
