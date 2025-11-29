@@ -3,9 +3,15 @@ import ProfileSinglePost from "./profile-single-post/ProfileSinglePost";
 import { UserContext } from "../../context/userContext";
 import useRequest from "../../hooks/useRequest";
 import { endpoints } from "../../config/constants";
+import { Navigate } from "react-router";
 
 export default function Profile() {
     const { username, email, _id } = useContext(UserContext);
+
+    if (!email) {
+        return <Navigate to="/users/login" replace />;
+    }
+
     const { resData: likedPosts } = useRequest(endpoints.likedPosts + _id, {
         data: [],
     });
