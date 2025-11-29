@@ -1,6 +1,5 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { UserContext } from "../context/userContext";
-import { clearUserData } from "../utils/localStorageManager";
 import { useNavigate } from "react-router";
 
 export default function useRequest(url, initState) {
@@ -10,20 +9,26 @@ export default function useRequest(url, initState) {
 
     const { accessToken, userLogoutHandler } = useContext(UserContext);
 
-    const request = async (url, method, data) => {
-        const optins = { method, headers: {} };
+    const controllerRef = useRef(null); //refererention to be tracked throuth rerenders
+    const initRun = useRef(true);
+
+    const request = async (url, method, data, controller) => {
+        const abortController = controller || new AbortController();
+        const signal = abortController.signal;
+
+        const options = { method, headers: {}, signal };
 
         if (data !== undefined) {
-            optins.headers["Content-Type"] = "application/json";
-            optins.body = JSON.stringify(data);
+            options.headers["Content-Type"] = "application/json";
+            options.body = JSON.stringify(data);
         }
 
         if (accessToken) {
-            optins.headers["X-Authorization"] = accessToken;
+            options.headers["X-Authorization"] = accessToken;
         }
 
         try {
-            const response = await fetch(url, optins);
+            const response = await fetch(url, options);
 
             if (!response.ok) {
                 const err = await response.json();
@@ -43,26 +48,49 @@ export default function useRequest(url, initState) {
             }
 
             if (response.status == 204) {
-                setLoading(false);
                 return response;
             } else {
-                setLoading(false);
                 return response.json();
             }
         } catch (err) {
+            console.log("Fetch request aborted!");
+            if ((err.name = "AbortError")) return;
+
             alert(err.message);
             throw err;
+        } finally {
+            setLoading(false);
         }
     };
 
     useEffect(() => {
         if (!url) return;
 
-        request(url)
+        const abortController = new AbortController();
+        controllerRef.current = abortController;
+
+        request(url, "GET", undefined, abortController)
             .then((res) => setData(res))
             .then(() => setLoading(false))
-            .catch((err) => alert(err.message));
+            .catch((err) => {
+                if (err?.name !== "AbortError") {
+                    alert(err.message);
+                }
+            });
+        return () => {
+            if (initRun.current) {
+                initRun.current = false;
+                return;
+            }
+            abortController.abort();
+        };
     }, [url]);
 
-    return { request, resData, setData, loading };
+    return {
+        request,
+        resData,
+        setData,
+        loading,
+        abort: () => controllerRef.current?.abort(),
+    };
 }
