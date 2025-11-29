@@ -20,7 +20,7 @@ export default function Login() {
         setUserData({ email, password });
         const errorData = validateLoginForm({ email, password });
 
-        // setErrors(errorData);
+        setErrors(errorData);
 
         if (errorData.email || errorData.password) {
             return;

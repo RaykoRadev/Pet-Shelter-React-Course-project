@@ -1,12 +1,14 @@
 import { createContext, useContext } from "react";
-import { clearUserData } from "../utils/localStorageManager";
+import { clearUserData, setUserData } from "../utils/localStorageManager";
 
 export const UserContext = createContext({
     _id: "",
     email: "",
     username: "",
     accessToken: "",
-    // userLoginHandler: () => null,
+    userLoginHandler: (data) => {
+        setUserData(data);
+    },
     userLogoutHandler: () => {
         clearUserData();
     },
