@@ -1,5 +1,4 @@
 import { useNavigate } from "react-router";
-import { deleteOne } from "../../services/petServices";
 import useRequest from "../../hooks/useRequest";
 import { endpoints } from "../../config/constants";
 

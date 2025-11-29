@@ -1,5 +1,4 @@
 import { useContext, useEffect, useState } from "react";
-import { getOne, sendDisike, sendLike } from "../../services/petServices";
 import { Link, useParams } from "react-router";
 import { getUserData } from "../../utils/localStorageManager";
 import DeleteModal from "../delete-modal/DeleteModal";
