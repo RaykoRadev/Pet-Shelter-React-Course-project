@@ -1,85 +1,17 @@
-import { useEffect, useState } from "react";
 import Pagination from "../pagination/Pagination";
 import Catalog from "./catalog/Catalog";
 import Spinner from "../spinner/Spinner";
-import { getAll } from "../../services/petServices";
-import useRequest from "../../hooks/useRequest";
+
 import usePagination from "../../hooks/usePagination";
+import useSorting from "../../hooks/useSorting";
 
 export default function CatalogPage() {
-    const { page, total, posts, loading, setPage } = usePagination();
+    const { page, total, posts, loading, setPage, setPosts } = usePagination();
 
-    // const [posts, setPosts] = useState([]);
-    // const [loading, setLoading] = useState(true);
-    // const [page, setPage] = useState(1);
-    // const [total, setTotal] = useState(0);
-    // const [limit, setLimit] = useState(4);
-    const [selectedFilters, setSelectedFilters] = useState({
-        category: "",
-        sorting: "",
-    });
-
-    // const { resData: pets, loading } = useRequest(
-    //     `http://localhost:3000/animals?page=${page}&limit=${limit}`,
-    //     {}
-    // );
-
-    // //todo pagination in separate hook
-    // useEffect(() => {
-    //     if (!pets || !pets.data) return;
-
-    //     const { data, pagination } = pets;
-
-    //     setPosts(data);
-    //     setTotal(pagination.totalPages);
-    //     setPage(pagination.page);
-    //     setLimit(pagination.limit);
-    // }, [pets]);
-
-    //showing the selected filter for sorting
-    const handleFilterChange = (e) => {
-        const { name, value } = e.target;
-        setSelectedFilters((prev) => ({ ...prev, [name]: value }));
-    };
-
-    const sortHendler = (e) => {
-        const category = selectedFilters.category;
-        const sorting = selectedFilters.sorting;
-
-        let sort = 1;
-        if (sorting === "descending") {
-            sort = -1;
-        }
-
-        const sorted = posts.slice().sort((a, b) => {
-            if (category === "age") {
-                return (a[category] - b[category]) * sort;
-            }
-            return a[category].localeCompare(b[category]) * sort;
-        });
-
-        setPosts(sorted);
-    };
-
-    // useEffect(() => {
-    //     const abortController = new AbortController();
-    //     (async () => {
-    //         const { data, pagination } = await getAll(
-    //             page,
-    //             limit,
-    //             abortController.signal //!
-    //         );
-    //         setPets(data);
-    //         setTotal(pagination.totalPages);
-    //         setPage(pagination.page);
-    //         setLimit(pagination.limit);
-    //         setLoading(false);
-    //     })();
-
-    //     return () => {
-    //         abortController.abort();
-    //     };
-    // }, [page]);
+    const { selectedFilters, sortHendler, handleFilterChange } = useSorting(
+        posts,
+        setPosts
+    );
 
     if (loading) {
         return <Spinner />;
