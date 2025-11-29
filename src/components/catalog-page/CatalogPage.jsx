@@ -4,34 +4,37 @@ import Catalog from "./catalog/Catalog";
 import Spinner from "../spinner/Spinner";
 import { getAll } from "../../services/petServices";
 import useRequest from "../../hooks/useRequest";
+import usePagination from "../../hooks/usePagination";
 
 export default function CatalogPage() {
-    const [posts, setPosts] = useState([]);
+    const { page, total, posts, loading, setPage } = usePagination();
+
+    // const [posts, setPosts] = useState([]);
     // const [loading, setLoading] = useState(true);
-    const [page, setPage] = useState(1);
-    const [total, setTotal] = useState(0);
-    const [limit, setLimit] = useState(4);
+    // const [page, setPage] = useState(1);
+    // const [total, setTotal] = useState(0);
+    // const [limit, setLimit] = useState(4);
     const [selectedFilters, setSelectedFilters] = useState({
         category: "",
         sorting: "",
     });
 
-    const { resData: pets, loading } = useRequest(
-        `http://localhost:3000/animals?page=${page}&limit=${limit}`,
-        {}
-    );
+    // const { resData: pets, loading } = useRequest(
+    //     `http://localhost:3000/animals?page=${page}&limit=${limit}`,
+    //     {}
+    // );
 
-    //todo pagination in separate hook
-    useEffect(() => {
-        if (!pets || !pets.data) return;
+    // //todo pagination in separate hook
+    // useEffect(() => {
+    //     if (!pets || !pets.data) return;
 
-        const { data, pagination } = pets;
+    //     const { data, pagination } = pets;
 
-        setPosts(data);
-        setTotal(pagination.totalPages);
-        setPage(pagination.page);
-        setLimit(pagination.limit);
-    }, [pets]);
+    //     setPosts(data);
+    //     setTotal(pagination.totalPages);
+    //     setPage(pagination.page);
+    //     setLimit(pagination.limit);
+    // }, [pets]);
 
     //showing the selected filter for sorting
     const handleFilterChange = (e) => {
