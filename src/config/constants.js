@@ -6,16 +6,16 @@ const host = import.meta.env.VITE_API_URL;
 const online = "https://back-end-server-nodejs-express.onrender.com";
 
 export const endpoints = {
-    login: host + "/users/login",
-    register: host + "/users/register",
-    logout: host + "/users/logout",
+    login: host + "/api/users/login",
+    register: host + "/api/users/register",
+    logout: host + "/api/users/logout",
 
-    getAll: host + "/animals",
-    getOne: host + "/animals/",
-    createOne: host + "/animals/",
-    likes: host + "/animals/likes/",
-    dislike: host + "/animals/dislikes/",
-    ownedPosts: host + "/animals?author=",
-    likedPosts: host + "/animals?liked=",
-    homePotos: host + "/animals/home-photos",
+    getAll: host + "/api/animals",
+    getOne: host + "/api/animals/",
+    createOne: host + "/api/animals/",
+    likes: host + "/api/animals/likes/",
+    dislike: host + "/api/animals/dislikes/",
+    ownedPosts: host + "/api/animals?author=",
+    likedPosts: host + "/api/animals?liked=",
+    homePotos: host + "/api/animals/home-photos",
 };
