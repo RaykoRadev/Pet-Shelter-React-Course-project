@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import useRequest from "./useRequest";
+import { endpoints } from "../config/constants";
 
 export default function usePagination() {
     const [posts, setPosts] = useState([]);
@@ -8,7 +9,7 @@ export default function usePagination() {
     const [limit, setLimit] = useState(4);
 
     const { resData: pets, loading } = useRequest(
-        `http://localhost:3000/animals?page=${page}&limit=${limit}`,
+        `${endpoints.getAll}?page=${page}&limit=${limit}`,
         {}
     );
 
