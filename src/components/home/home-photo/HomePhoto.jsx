@@ -58,6 +58,7 @@ export default function HomePhotos({ photos }) {
         return relative > 2 ? "hideRight" : "hideLeft";
     };
 
+    //todo to add no pets message
     return (
         <div id="carousel-area">
             <div id="carousel">
