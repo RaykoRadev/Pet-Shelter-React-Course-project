@@ -1,12 +1,13 @@
 import { useLocation, useNavigate, useParams } from "react-router";
 import uploadPhoto from "../../services/uploadePhoto";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import Inputfield from "./fields/Inputfield";
 import ImageUpload from "./fields/ImageUpload";
 import TextareaField from "./fields/Textareafield";
 import useRequest from "../../hooks/useRequest";
 import { endpoints } from "../../config/constants";
+import { UserContext } from "../../context/userContext";
 
 const initVal = {
     name: "",
@@ -28,17 +29,24 @@ export default function CreateEdit() {
     const { request } = useRequest();
     const navigate = useNavigate();
     const { pathname } = useLocation();
+    const { _id: userId } = useContext(UserContext);
 
     //checking whic page to load edit or create
     if (pathname.includes("edit")) {
         petId = useParams().petId;
 
-        //todo  to fix abort controller
-        const abortController = new AbortController();
         useEffect(() => {
             (async () => {
                 await setIsEdit(true);
                 const getPet = await request(endpoints.getOne + petId);
+
+                const owner = getPet.author?._id === userId;
+
+                if (!owner) {
+                    navigate("/pets/catalog", { replace: true });
+                    alert("Only the author can edit the post!");
+                    return;
+                }
                 reset({
                     name: getPet.name,
                     species: getPet.species,
@@ -48,9 +56,6 @@ export default function CreateEdit() {
                     description: getPet.description,
                 });
             })();
-            return () => {
-                abortController.abort();
-            };
         }, [petId]);
     }
 

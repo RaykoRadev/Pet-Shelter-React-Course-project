@@ -15,12 +15,7 @@ export default function Details() {
     const userId = _id;
     const petId = useParams().petId;
 
-    const {
-        resData: pet,
-        loading,
-        request,
-        setData,
-    } = useRequest(endpoints.getOne + petId, {});
+    const { resData: pet, loading } = useRequest(endpoints.getOne + petId, {});
 
     const { amountLikes, likeHandler, isLiked } = useLikes(userId, pet);
 
