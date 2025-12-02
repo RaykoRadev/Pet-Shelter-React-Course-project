@@ -2,7 +2,6 @@ import { Route, Routes } from "react-router";
 import Footer from "./components/footer/Footer";
 import Home from "./components/home/Home";
 import Login from "./components/login/Login";
-import Test from "./components/Test";
 import NotFound from "./components/not-found/NotFound";
 import Register from "./components/register/Register";
 import CreateEdit from "./components/create-edit/CreateEdit";
@@ -12,6 +11,8 @@ import Navbar from "./components/navbar/Navbar";
 import Profile from "./components/profile/Profile";
 import CatalogPage from "./components/catalog-page/CatalogPage";
 import UserProvider from "./providers/UserProvider";
+import IsAuthenticated from "./guards/isAuthenticated/IsAuthenticated";
+import IsGuest from "./guards/isGuest/IsGuest";
 
 function App() {
     return (
@@ -28,21 +29,31 @@ function App() {
                 <div className="flex-grow">
                     <Routes>
                         <Route path="/" element={<Home />} />
-                        <Route path="/users/login" element={<Login />} />
-                        <Route path="/users/register" element={<Register />} />
-                        <Route path="/users/profile" element={<Profile />} />
-                        <Route path="/pets">
-                            <Route path="catalog" element={<CatalogPage />} />
-                            <Route path="create" element={<CreateEdit />} />
+                        <Route element={<IsGuest />}>
+                            <Route path="/users/login" element={<Login />} />
                             <Route
-                                path="details/:petId"
-                                element={<Details />}
-                            ></Route>
-                            <Route
-                                path="edit/:petId"
-                                element={<CreateEdit />}
+                                path="/users/register"
+                                element={<Register />}
                             />
-                            <Route path="test" element={<Test />} />
+                        </Route>
+                        <Route path="/pets/catalog" element={<CatalogPage />} />
+                        <Route
+                            path="/pets/details/:petId"
+                            element={<Details />}
+                        ></Route>
+                        <Route element={<IsAuthenticated />}>
+                            <Route
+                                path="/users/profile"
+                                element={<Profile />}
+                            />
+                            <Route path="/pets">
+                                <Route path="create" element={<CreateEdit />} />
+
+                                <Route
+                                    path="edit/:petId"
+                                    element={<CreateEdit />}
+                                />
+                            </Route>
                         </Route>
                         <Route path="/about-us" element={<AboutUs />} />
                         <Route path="*" element={<NotFound />} />
