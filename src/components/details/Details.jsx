@@ -1,15 +1,14 @@
-import { useContext, useEffect, useReducer, useState } from "react";
+import { useContext, useState } from "react";
 import { Link, useParams } from "react-router";
 import DeleteModal from "../delete-modal/DeleteModal";
 import Spinner from "../spinner/Spinner";
 import { UserContext } from "../../context/userContext";
 import useRequest from "../../hooks/useRequest";
 import { endpoints } from "../../config/constants";
-import likeReduser from "../../redusers/likeReduser";
+import useLikes from "../../hooks/useLikes";
 
 export default function Details() {
     const { _id, username } = useContext(UserContext);
-    const [isLiked, dispatchLikes] = useReducer(likeReduser, false);
 
     const [modal, setShowModal] = useState(false);
 
@@ -23,62 +22,13 @@ export default function Details() {
         setData,
     } = useRequest(endpoints.getOne + petId, {});
 
-    useEffect(() => {
-        if (pet.liked) {
-            dispatchLikes({
-                type: "init",
-                payload: { liked: pet.liked, userId },
-            });
-        }
-    }, [pet.liked, userId]);
+    const { amountLikes, likeHandler, isLiked } = useLikes(userId, pet);
 
     const owner = pet.author?._id === userId;
 
     if (loading) {
         return <Spinner />;
     }
-
-    const amountLikes = pet.liked?.length;
-
-    const likeHandler = async (e, postId) => {
-        // console.log(userId);
-
-        if (isLiked) {
-            const result = await request(endpoints.dislike + postId, "POST", {
-                liked: userId,
-            });
-
-            setData((prev) => ({
-                ...prev,
-                liked: result.liked,
-            }));
-
-            dispatchLikes({
-                type: "disLike",
-                payload: {
-                    liked: result.liked,
-                    userId,
-                },
-            });
-        } else {
-            const result = await request(endpoints.likes + postId, "POST", {
-                liked: userId,
-            });
-
-            setData((prev) => ({
-                ...prev,
-                liked: result.liked,
-            }));
-
-            dispatchLikes({
-                type: "like",
-                payload: {
-                    liked: result.liked,
-                    userId,
-                },
-            });
-        }
-    };
 
     const closeDeleteModal = () => {
         setShowModal(false);
