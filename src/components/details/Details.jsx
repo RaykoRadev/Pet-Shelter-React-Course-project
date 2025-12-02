@@ -1,44 +1,38 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useReducer, useState } from "react";
 import { Link, useParams } from "react-router";
-import { getUserData } from "../../utils/localStorageManager";
 import DeleteModal from "../delete-modal/DeleteModal";
 import Spinner from "../spinner/Spinner";
 import { UserContext } from "../../context/userContext";
 import useRequest from "../../hooks/useRequest";
 import { endpoints } from "../../config/constants";
+import likeReduser from "../../redusers/likeReduser";
 
 export default function Details() {
     const { _id, username } = useContext(UserContext);
-    // const [pet, setPet] = useState({});
-    const [isLiked, setIsLiked] = useState(false);
-    const [modal, setShowModal] = useState(false);
-    // const [loading, setLoading] = useState(true);
+    const [isLiked, dispatchLikes] = useReducer(likeReduser, false);
 
-    // const userId = getUserData()?._id;
+    const [modal, setShowModal] = useState(false);
+
     const userId = _id;
     const petId = useParams().petId;
+
     const {
         resData: pet,
         loading,
         request,
+        setData,
     } = useRequest(endpoints.getOne + petId, {});
-    const owner = pet?.author?._id === userId;
 
-    // useEffect(() => {
-    //     const abortController = new AbortController();
-    //     const post = async () => {
-    //         const data = await getOne(petId, abortController.signal);
-    //         const isLiked = data.liked.includes(userId);
-    //         setIsLiked(isLiked);
-    //         setPet(data);
-    //         setLoading(false);
-    //     };
-    //     post();
+    useEffect(() => {
+        if (pet.liked) {
+            dispatchLikes({
+                type: "init",
+                payload: { liked: pet.liked, userId },
+            });
+        }
+    }, [pet.liked, userId]);
 
-    //     return () => {
-    //         abortController.abort();
-    //     };
-    // }, [petId, modal]);
+    const owner = pet.author?._id === userId;
 
     if (loading) {
         return <Spinner />;
@@ -46,26 +40,44 @@ export default function Details() {
 
     const amountLikes = pet.liked?.length;
 
-    const likeHandler = (e, postId) => {
+    const likeHandler = async (e, postId) => {
         // console.log(userId);
 
-        const data = async () => {
-            if (isLiked) {
-                await request(endpoints.likes + postId, "POST", {
-                    liked: userId,
-                });
-                // await sendDisike(postId, { liked: userId });
-                setIsLiked(false);
-            } else {
-                // console.log("step 1");
-                await request(endpoints.dislike + postId, "POST", {
-                    liked: userId,
-                });
-                // await sendLike(postId, { liked: userId });
-                setIsLiked(true);
-            }
-        };
-        data();
+        if (isLiked) {
+            const result = await request(endpoints.dislike + postId, "POST", {
+                liked: userId,
+            });
+
+            setData((prev) => ({
+                ...prev,
+                liked: result.liked,
+            }));
+
+            dispatchLikes({
+                type: "disLike",
+                payload: {
+                    liked: result.liked,
+                    userId,
+                },
+            });
+        } else {
+            const result = await request(endpoints.likes + postId, "POST", {
+                liked: userId,
+            });
+
+            setData((prev) => ({
+                ...prev,
+                liked: result.liked,
+            }));
+
+            dispatchLikes({
+                type: "like",
+                payload: {
+                    liked: result.liked,
+                    userId,
+                },
+            });
+        }
     };
 
     const closeDeleteModal = () => {
