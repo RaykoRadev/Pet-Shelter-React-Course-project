@@ -63,16 +63,6 @@ export default function Navbar() {
                             </NavLink>
                         </li>
                     )}
-                    {/* <li className="p-3 xl:p-6">
-                        <NavLink
-                            className={({ isActive }) =>
-                                isActive ? "active" : ""
-                            }
-                            to="/pets/test"
-                        >
-                            <span>Test</span>
-                        </NavLink>
-                    </li> */}
                     <li className="p-3 xl:p-6">
                         <NavLink
                             className={({ isActive }) =>
@@ -118,12 +108,12 @@ export default function Navbar() {
                 </ul>
             </div>
 
-            <nav className="hidden xl:contents">
+            {/* <nav className="hidden xl:contents">
                 <ul className="flex items-center mr-4 lg:mr-6 xl:mr-8">
                     <li className="p-1">
                         <a
                             href="https://x.com/"
-                            className="inline-block rounded-full border p-2 hover:shadow-lg hover:border-opacity-0 duration-200 hover:-translate-y-0.5"
+                            className="inline-block rounded-full p-2 duration-200 hover:-translate-y-0.5"
                         >
                             <svg
                                 className="h-4"
@@ -145,7 +135,7 @@ export default function Navbar() {
                     <li className="p-1">
                         <a
                             href="https://www.facebook.com/"
-                            className="inline-block rounded-full border p-2 hover:shadow-lg hover:border-opacity-0 duration-200 hover:-translate-y-0.5"
+                            className="inline-block rounded-full p-2 duration-200 hover:-translate-y-0.5"
                         >
                             <svg
                                 className="h-4"
@@ -167,7 +157,7 @@ export default function Navbar() {
                     <li className="p-1">
                         <a
                             href="https://www.instagram.com/"
-                            className="inline-block rounded-full border p-2 hover:shadow-lg hover:border-opacity-0 duration-200 hover:-translate-y-0.5"
+                            className="inline-block rounded-full p-2 duration-200 hover:-translate-y-0.5"
                         >
                             <svg
                                 className="h-4"
@@ -187,7 +177,7 @@ export default function Navbar() {
                         </a>
                     </li>
                 </ul>
-            </nav>
+            </nav> */}
             {message && <Toast message={message} onClose={closeToast} />}
         </header>
     );
