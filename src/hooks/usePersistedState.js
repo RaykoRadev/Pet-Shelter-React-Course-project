@@ -8,6 +8,10 @@ export default function usePersistedState(stateKey, initState) {
             return typeof initState === "function" ? initState() : initState;
         }
 
+        if (persistedState === "undefined") {
+            localStorage.removeItem(stateKey);
+        }
+
         const persistedStateData = JSON.parse(persistedState);
 
         return persistedStateData;
