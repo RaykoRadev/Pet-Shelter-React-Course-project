@@ -20,7 +20,7 @@ export default function CatalogPage() {
     if (posts.length === 0) {
         return (
             <h2 className="mt-80 text-center text-3xl font-bold text-green-700 mb-6">
-                There is no any pets with no home!
+                There is no any pets without home!
             </h2>
         );
     }

@@ -12,7 +12,6 @@ export default function useRequest(url, initState) {
 
     const controllerRef = useRef(null); //refererention to be tracked throuth rerenders
     const initRun = useRef(true);
-
     const showToast = useToastStore((state) => state.show);
 
     const request = async (url, method, data, controller) => {

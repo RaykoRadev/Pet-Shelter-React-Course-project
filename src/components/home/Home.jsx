@@ -5,7 +5,6 @@ import { endpoints } from "../../config/constants";
 
 export default function Home() {
     const { resData: photos, loading } = useRequest(endpoints.homePotos, []);
-
     if (loading) {
         return <Spinner />;
     }
@@ -34,6 +33,11 @@ export default function Home() {
                     </p>
                 </div>
                 <div className="w-full lg:w-2/3 py-1 px-10 grid relative">
+                    {!photos && (
+                        <h5 className="mt-80 text-center text-3xl font-bold text-green-700 mb-6">
+                            There is no any pets without home!
+                        </h5>
+                    )}
                     {photos && <HomePhotos photos={photos} />}
                 </div>
             </div>

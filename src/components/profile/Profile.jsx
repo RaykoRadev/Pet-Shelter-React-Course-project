@@ -4,12 +4,15 @@ import { UserContext } from "../../context/userContext";
 import useRequest from "../../hooks/useRequest";
 import { endpoints } from "../../config/constants";
 import { Navigate } from "react-router";
+import { useToastStore } from "../../context/toastStoreZustand";
 
 export default function Profile() {
     const { username, email, _id } = useContext(UserContext);
+    const toast = useToastStore.getState((state) => state.show);
 
     if (!email) {
-        return <Navigate to="/users/login" replace />;
+        toast.show("This page is available only for logged users!");
+        <Navigate to="/users/login" replace />;
     }
 
     const { resData: likedPosts } = useRequest(endpoints.likedPosts + _id, {
