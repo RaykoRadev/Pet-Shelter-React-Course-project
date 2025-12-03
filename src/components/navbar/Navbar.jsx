@@ -4,11 +4,15 @@ import { UserContext } from "../../context/userContext";
 import "./Navbar.css";
 import useRequest from "../../hooks/useRequest";
 import { endpoints } from "../../config/constants";
+import { useToastStore } from "../../context/toastStoreZustand";
+import Toast from "../toast/Toast";
 
 export default function Navbar() {
     const navigate = useNavigate();
     const { userLogoutHandler, username } = useContext(UserContext);
     const { request } = useRequest();
+    const message = useToastStore((state) => state.message);
+    const closeToast = useToastStore((state) => state.clear);
 
     const logoutHandler = async () => {
         // await logout();
@@ -184,6 +188,7 @@ export default function Navbar() {
                     </li>
                 </ul>
             </nav>
+            {message && <Toast message={message} onClose={closeToast} />}
         </header>
     );
 }

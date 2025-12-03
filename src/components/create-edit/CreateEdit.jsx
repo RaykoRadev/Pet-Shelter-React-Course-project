@@ -8,6 +8,7 @@ import TextareaField from "./fields/Textareafield";
 import useRequest from "../../hooks/useRequest";
 import { endpoints } from "../../config/constants";
 import { UserContext } from "../../context/userContext";
+import { useToastStore } from "../../context/toastStoreZustand";
 
 const initVal = {
     name: "",
@@ -30,6 +31,7 @@ export default function CreateEdit() {
     const navigate = useNavigate();
     const { pathname } = useLocation();
     const { _id: userId } = useContext(UserContext);
+    const toast = useToastStore.getState((state) => state.show);
 
     //checking whic page to load edit or create
     if (pathname.includes("edit")) {
@@ -44,7 +46,8 @@ export default function CreateEdit() {
 
                 if (!owner) {
                     navigate("/pets/catalog", { replace: true });
-                    alert("Only the author can edit the post!");
+                    // alert("Only the author can edit the post!");
+                    toast.show("Only the author can edit the post!");
                     return;
                 }
                 reset({

@@ -17,7 +17,7 @@ export default function Toast({ message = "Token expired!", onClose }) {
 
     const handleClose = () => {
         setIsVisible(false);
-        if (onClose) onClose();
+        onClose();
     };
 
     if (!isVisible) return null;
@@ -90,7 +90,7 @@ export default function Toast({ message = "Token expired!", onClose }) {
                         </g>
                     </svg>
                 </div>
-                <span className="text-[15px] mr-3">Something went wrong</span>
+                <span className="text-[15px] mr-3">{message}</span>
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
                     className="w-3 cursor-pointer shrink-0 fill-white ml-auto"
