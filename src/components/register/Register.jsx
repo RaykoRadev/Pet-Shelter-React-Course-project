@@ -30,6 +30,9 @@ export default function Register() {
 
         const user = await request(endpoints.register, "POST", data);
         // const user = await register(data);
+        if (!user) {
+            return;
+        }
         userLoginHandler(user);
         navigate("/");
     };

@@ -4,6 +4,7 @@ import { useContext, useState } from "react";
 import { UserContext } from "../../context/userContext";
 import useRequest from "../../hooks/useRequest";
 import { endpoints } from "../../config/constants";
+import { useToastStore } from "../../context/toastStoreZustand";
 
 export default function Login() {
     const [errors, setErrors] = useState({});
@@ -11,6 +12,7 @@ export default function Login() {
     const { request } = useRequest();
     const { userLoginHandler } = useContext(UserContext);
     const navigate = useNavigate();
+    const toast = useToastStore.getState((state) => state.show);
 
     const loginSubmitHandler = async (formData) => {
         const email = formData.get("email");
@@ -24,15 +26,22 @@ export default function Login() {
         if (errorData.email || errorData.password) {
             return;
         }
+        // try {
         const user = await request(endpoints.login, "POST", {
             email,
             password,
         });
-        // const user = await login(email, password);
-        userLoginHandler(user);
-        console.log(user);
 
+        if (!user) {
+            return;
+        }
+
+        userLoginHandler(user);
         navigate("/");
+        // } catch (err) {
+        //     // console.log(err.message);
+        //     toast.show(err.message);
+        // }
     };
 
     //errors visualization

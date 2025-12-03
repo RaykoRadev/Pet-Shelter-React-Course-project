@@ -1,6 +1,7 @@
 import { useContext, useEffect, useRef, useState } from "react";
 import { UserContext } from "../context/userContext";
 import { useNavigate } from "react-router";
+import { useToastStore } from "../context/toastStoreZustand";
 
 export default function useRequest(url, initState) {
     const navigate = useNavigate();
@@ -11,6 +12,8 @@ export default function useRequest(url, initState) {
 
     const controllerRef = useRef(null); //refererention to be tracked throuth rerenders
     const initRun = useRef(true);
+
+    const showToast = useToastStore((state) => state.show);
 
     const request = async (url, method, data, controller) => {
         const abortController = controller || new AbortController();
@@ -54,10 +57,11 @@ export default function useRequest(url, initState) {
             }
         } catch (err) {
             console.log("Fetch request aborted!");
-            if ((err.name = "AbortError")) return;
+            if (err.name == "AbortError") return;
 
-            alert(err.message);
-            throw err;
+            // alert(err.message);
+            showToast(err.message);
+            // throw err;
         } finally {
             setLoading(false);
         }
@@ -74,7 +78,8 @@ export default function useRequest(url, initState) {
             .then(() => setLoading(false))
             .catch((err) => {
                 if (err?.name !== "AbortError") {
-                    alert(err.message);
+                    // alert(err.message);
+                    showToast(err.message);
                 }
             });
         return () => {
