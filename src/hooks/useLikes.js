@@ -5,9 +5,9 @@ import likeReduser from "../redusers/likeReduser";
 import { endpoints } from "../config/constants";
 import useRequest from "./useRequest";
 
-export default function useLikes(userId, pet) {
+export default function useLikes(userId, pet, setData) {
     const [isLiked, dispatchLikes] = useReducer(likeReduser, false);
-    const { request, setData } = useRequest();
+    const { request } = useRequest();
 
     useEffect(() => {
         if (pet.liked) {
