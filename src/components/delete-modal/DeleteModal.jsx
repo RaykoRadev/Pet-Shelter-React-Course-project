@@ -8,7 +8,7 @@ export default function DeleteModal({ postId, onClose }) {
     const deletePostHandler = async () => {
         await request(endpoints.getOne + postId, "DELETE");
         // await deleteOne(postId);
-        navigate("/pets/catalog");
+        navigate(-1);
     };
 
     return (
