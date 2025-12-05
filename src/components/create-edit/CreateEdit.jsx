@@ -27,7 +27,7 @@ export default function CreateEdit() {
     });
     const [imgLink, setImgLink] = useState(null);
     const [isEdit, setIsEdit] = useState(false);
-    const { request } = useRequest();
+    const { request, loading } = useRequest();
     const navigate = useNavigate();
     const { pathname } = useLocation();
     const { _id: userId } = useContext(UserContext);
@@ -196,6 +196,7 @@ export default function CreateEdit() {
                     <div>
                         <button
                             type="submit"
+                            disabled={loading}
                             className="flex w-full justify-center rounded-md bg-green-700 px-3 py-1.5 text-sm/6 font-semibold text-white shadow-xs hover:bg-green-600 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                         >
                             {isEdit ? "Edit" : "Create"}
