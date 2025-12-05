@@ -95,7 +95,9 @@ export default function Navbar() {
                     <li className="p-3 xl:p-6 text-green-700 hover:text-green-600 text-lg ">
                         <span className="text-black">Welcome </span>
                         <Link to="/users/profile">
-                            <span>{username ? username : "Guest"}</span>
+                            <span className="text-xl color-green-700 ml-1">
+                                {username ? username : "Guest"}
+                            </span>
                         </Link>
                     </li>
                     {username && (
