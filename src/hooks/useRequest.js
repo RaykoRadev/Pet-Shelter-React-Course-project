@@ -6,7 +6,7 @@ import { useToastStore } from "../context/toastStoreZustand";
 export default function useRequest(url, initState) {
     const navigate = useNavigate();
     const [resData, setData] = useState(initState);
-    const [loading, setLoading] = useState(true);
+    const [loading, setLoading] = useState(false);
 
     const { accessToken, userLogoutHandler } = useContext(UserContext);
 
@@ -30,6 +30,7 @@ export default function useRequest(url, initState) {
         }
 
         try {
+            setLoading(true);
             const response = await fetch(url, options);
 
             if (!response.ok) {
