@@ -4,13 +4,15 @@ import { validateRegisterForm } from "../../utils/formValidators";
 import { UserContext } from "../../context/userContext";
 import useRequest from "../../hooks/useRequest";
 import { endpoints } from "../../config/constants";
+import { useToastStore } from "../../context/toastStoreZustand";
 
 export default function Register() {
     const [errors, setErrors] = useState({});
     const [userData, setUserData] = useState({});
     const { userLoginHandler } = useContext(UserContext);
-    const { request } = useRequest();
+    const { request, loading } = useRequest();
     const navigate = useNavigate();
+    const toast = useToastStore.getState((state) => state.show);
 
     const submitAction = async (formData) => {
         const data = Object.fromEntries(formData);
@@ -29,7 +31,7 @@ export default function Register() {
         }
 
         const user = await request(endpoints.register, "POST", data);
-        // const user = await register(data);
+
         if (!user) {
             return;
         }
@@ -37,6 +39,7 @@ export default function Register() {
         navigate("/");
     };
 
+    //errors visualization
     const inputStyle = (field) =>
         `${
             errors[field] && "border-2 border-red-700"
@@ -151,6 +154,7 @@ export default function Register() {
                     <div>
                         <button
                             type="submit"
+                            disabled={loading}
                             className="flex w-full justify-center rounded-md bg-green-700 px-3 py-1.5 text-sm/6 font-semibold text-white shadow-xs hover:bg-green-600 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600"
                         >
                             Sign in

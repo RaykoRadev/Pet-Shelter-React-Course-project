@@ -1,6 +1,4 @@
-//todo to delete if i dont need it in the end
-
-import { useEffect, useReducer, useState } from "react";
+import { useEffect, useReducer } from "react";
 import likeReduser from "../redusers/likeReduser";
 import { endpoints } from "../config/constants";
 import useRequest from "./useRequest";
@@ -19,8 +17,6 @@ export default function useLikes(userId, pet, setData) {
     }, [pet.liked, userId]);
 
     const likeHandler = async (e, postId) => {
-        // console.log(userId);
-
         if (isLiked) {
             const result = await request(endpoints.dislike + postId, "POST", {
                 liked: userId,

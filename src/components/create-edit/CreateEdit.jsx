@@ -33,7 +33,7 @@ export default function CreateEdit() {
     const { _id: userId } = useContext(UserContext);
     const toast = useToastStore.getState((state) => state.show);
 
-    //checking whic page to load edit or create
+    //checking which page to load edit or create
     if (pathname.includes("edit")) {
         petId = useParams().petId;
 

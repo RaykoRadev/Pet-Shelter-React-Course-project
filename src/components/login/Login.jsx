@@ -9,7 +9,7 @@ import { useToastStore } from "../../context/toastStoreZustand";
 export default function Login() {
     const [errors, setErrors] = useState({});
     const [userData, setUserData] = useState({});
-    const { request } = useRequest();
+    const { request, loading } = useRequest();
     const { userLoginHandler } = useContext(UserContext);
     const navigate = useNavigate();
     const toast = useToastStore.getState((state) => state.show);
@@ -26,7 +26,7 @@ export default function Login() {
         if (errorData.email || errorData.password) {
             return;
         }
-        // try {
+
         const user = await request(endpoints.login, "POST", {
             email,
             password,
@@ -38,10 +38,6 @@ export default function Login() {
 
         userLoginHandler(user);
         navigate("/");
-        // } catch (err) {
-        //     // console.log(err.message);
-        //     toast.show(err.message);
-        // }
     };
 
     //errors visualization
@@ -114,6 +110,7 @@ export default function Login() {
                     <div>
                         <button
                             type="submit"
+                            disabled={loading}
                             className="flex w-full justify-center rounded-md bg-green-700 px-3 py-1.5 text-sm/6 font-semibold text-white shadow-xs hover:bg-green-600 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600"
                         >
                             Sign in

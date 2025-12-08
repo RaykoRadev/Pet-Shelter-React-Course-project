@@ -3,11 +3,8 @@ import { Link } from "react-router";
 export default function CatalogItem({
     _id,
     age,
-    author,
     species,
     breed,
-    createdAt,
-    description,
     imageUrl,
     name,
 }) {
@@ -37,7 +34,6 @@ export default function CatalogItem({
                             Age: {age}
                         </h4>
                     </div>
-                    {/*// todo  if the logic about loged not owner is easy to be transfered in this component  */}
                 </div>
             </Link>
         </div>

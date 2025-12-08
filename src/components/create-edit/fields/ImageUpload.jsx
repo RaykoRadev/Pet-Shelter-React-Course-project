@@ -76,7 +76,6 @@ export default function ImageUpload({
                             <input
                                 type="file"
                                 id="uploadFile1"
-                                // name="uploadedPhoto"
                                 className="hidden"
                                 onInput={uploadPhotoHendler}
                             />

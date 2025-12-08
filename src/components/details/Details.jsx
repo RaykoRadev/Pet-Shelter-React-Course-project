@@ -128,14 +128,6 @@ export default function Details() {
                                     type="button"
                                     className="flex w-40 justify-center gap-4 rounded-md bg-green-700 px-3 py-1.5 text-sm/6 font-semibold text-white shadow-xs hover:bg-green-600 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                                 >
-                                    {/* <svg
-                                    src="/heart.png"
-                                    width="25px"
-                                    className={`border-pink-200 cursor-pointer fill-pink-600 inline-block ${
-                                        liked && "fill-purple-500 "
-                                    }`}
-                                    viewBox="0 0 64 64"
-                                > */}
                                     <svg
                                         xmlns="http://www.w3.org/2000/svg"
                                         viewBox="0 0 24 24"

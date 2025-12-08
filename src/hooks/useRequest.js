@@ -35,13 +35,11 @@ export default function useRequest(url, initState) {
             if (!response.ok) {
                 const err = await response.json();
 
-                //todo to check what is the message when token is corupted
                 if (
                     response.status === 400 &&
                     (err.message == "jwt expired" ||
                         err.message == "invalid signature")
                 ) {
-                    // clearUserData();
                     userLogoutHandler();
                     navigate("/users/login", { replace: true });
                 }
@@ -58,9 +56,7 @@ export default function useRequest(url, initState) {
             console.log("Fetch request aborted!");
             if (err.name == "AbortError") return;
 
-            // alert(err.message);
             showToast(err.message);
-            // throw err;
         } finally {
             setLoading(false);
         }
@@ -77,7 +73,6 @@ export default function useRequest(url, initState) {
             .then(() => setLoading(false))
             .catch((err) => {
                 if (err?.name !== "AbortError") {
-                    // alert(err.message);
                     showToast(err.message);
                 }
             });
