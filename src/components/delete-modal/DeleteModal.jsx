@@ -3,7 +3,7 @@ import useRequest from "../../hooks/useRequest";
 import { endpoints } from "../../config/constants";
 
 export default function DeleteModal({ postId, onClose }) {
-    const { request } = useRequest();
+    const { request, loading } = useRequest();
     const navigate = useNavigate();
     const deletePostHandler = async () => {
         await request(endpoints.getOne + postId, "DELETE");
@@ -57,6 +57,7 @@ export default function DeleteModal({ postId, onClose }) {
                             <button
                                 onClick={deletePostHandler}
                                 type="button"
+                                disabled={loading}
                                 className="px-4 py-2 rounded-md cursor-pointer text-white text-sm font-medium tracking-wide bg-green-700 hover:bg-green-600 active:bg-green-700"
                             >
                                 Delete
